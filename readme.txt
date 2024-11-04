@@ -22,6 +22,15 @@ npm init -y
 
 npm install -D electron
 
+## 実行
+
+npx electron ./src
+
+## build
+
+npm install -D electron-packager
+npx electron-packager src FirstApp --platform=win32 --arch=x64 --overwrite
+
 ## 参考
 
 <https://ics.media/entry/7298/>

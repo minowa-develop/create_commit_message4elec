@@ -3,11 +3,11 @@ const fs = require('fs');
 const HISTORY_FILE="history.json"
 const MAX_HISTORY_COUNT=5;
 
+// read history
+var historyList = readhistoryList();
+
 // 履歴登録
 function registHistory() {
-  // read history
-  var historyList = readhistoryList();
-
   // oldest remove
   while(historyList.length >= MAX_HISTORY_COUNT){
     historyList.shift();
@@ -29,7 +29,7 @@ function readhistoryList(){
     try {
       historyList = JSON.parse(text);
     }catch(e){
-      // 変換できなかった際は初期値のまま
+      // 変換できなかった際は初期値(空配列)のまま
     }
   }
   return historyList;
@@ -45,9 +45,6 @@ function convHistoryObj(formobj){
 function showHistoryList(){
   var table = document.getElementById('history_area');
 
-  // read history
-  var historyList = readhistoryList();
-
   // reset tr
   while (table.rows.length > 0) table.deleteRow(0);
 
@@ -62,6 +59,7 @@ function showHistoryList(){
     // filename
     let filename = document.createElement("td");
     filename.appendChild(document.createTextNode(makeExportFileName(historyList[i].form)));
+    filename.setAttribute('onclick', 'callHistory('+ i +')');
     tr.appendChild(filename);
 
     table.appendChild(tr);
@@ -69,4 +67,9 @@ function showHistoryList(){
 }
 function makeTimestamp(date){
   return date.toLocaleDateString() +' '+ date.toLocaleTimeString();
+}
+
+// 履歴呼び出し
+function callHistory(index){
+  setFormData(historyList[index].form);
 }

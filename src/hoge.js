@@ -5,6 +5,7 @@ const toolTypeList = ["feat","fix","docs","style","refactor","perf","test","chor
 window.onload = function() {
   // load post method
   createTypeListValues();
+  showHistoryList();
 }
 
 // repository選択時、typeリスト作成
@@ -101,11 +102,11 @@ function exportData(){
   const blob = new Blob([ JSON.stringify(obj)],{type:"text/plain"});
   const link = document.createElement('a');
   link.href = URL.createObjectURL(blob);
-  link.download = makeExportFileName(obj);
+  link.download = makeExportFileName(obj) +'.txt';
   link.click();
 }
 function makeExportFileName(obj){
-  return obj.refs +'_'+ obj.subject +'.txt';
+  return obj.refs +'_'+ obj.subject;
 }
 
 // import

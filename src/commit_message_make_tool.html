@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>コミットメッセージ作成ツール</title>
+  <script src="./hoge.js"></script>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <h1>コミットメッセージ作成ツール</h1>
+  <div class="input_area">
+    <table class="left">
+      <tr>
+        <td class="column">repository:</td>
+        <td>
+          <input type="radio" id="documents" name="repository" onclick="createTypeListValues()" checked="true"><label for="documents">documents</label>
+          <input type="radio" id="tools" name="repository" onclick="createTypeListValues()"><label for="tools">tools</label>
+        </td>
+      </tr>
+      <tr>
+        <td class="column">type:</td>
+        <td>
+          <select size="2" id="type"></select>
+        </td>
+      </tr>
+    </table>
+    <table class="right">
+      <tr> <td class="column">scope:</td> <td><input type="text" id="scope" class="input_elm"></td> </tr>
+      <tr> <td class="column">subject:</td> <td><input type="text" id="subject" class="input_elm"></td> </tr>
+      <tr> <td class="column">message:</td> <td><textarea id="message" class="input_elm"></textarea></td> </tr>
+      <tr> <td class="column">refs:</td> <td><input type="text" id="refs" class="input_elm" maxlength="5"></td> </tr>
+    </table>
+    <div class="make_button_area"> <button onclick="createMessage()">make</button> </div>
+  </div>
+  <div class="maked_area">
+    <textarea id="commit_message"></textarea>
+    <button onclick="copy()">copy</button>
+    <button onclick="initialize()">initialize</button>
+  </div>
+  <div class="export_area">
+    <!-- <label class="import_label file-buttonlize"><input type="file" id="import_file" onchange="importData();" accept=".txt">importするファイルを選択してください</label> -->
+    <input type="file" id="import_file" onchange="importData();" accept=".txt">
+    <button onclick="exportData()">export</button>
+  </div>
+  <div class="docs_area">
+    <a href="./readme.txt">readme</a>
+  </div>
+</body>
+</html>

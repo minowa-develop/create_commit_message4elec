@@ -1,4 +1,5 @@
 const HISTORY_FILE="history.json"
+const MAX_HISTORY_COUNT=10;
 function registHistory() {
   const fs = require('fs');
   
@@ -11,6 +12,11 @@ function registHistory() {
     }catch(e){
       // 変換できなかった際は初期値のまま
     }
+  }
+
+  // oldest remove
+  while(historyList.length >= MAX_HISTORY_COUNT){
+    historyList.shift();
   }
 
   // add formdata for history

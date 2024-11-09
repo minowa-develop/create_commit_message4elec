@@ -1,5 +1,4 @@
 // アプリケーション作成用のモジュールを読み込み
-// const { app, BrowserWindow } = require("electron");
 const { app, BrowserWindow, ipcMain } = require('electron');
 const fs = require('fs');
 const path = require("path");
@@ -21,25 +20,20 @@ const createWindow = () => {
 
   ipcMain.handle('read-file', async (_e, file) => {
     var historyList = [];
-    console.log('Hello World');
     if(fs.existsSync(file)){
-      console.log('exist');
       var text = fs.readFileSync(file).toString();
       try {
         historyList = JSON.parse(text);
       }catch(e){
-        console.log('error');
         // 変換できなかった際は初期値(空配列)のまま
       }
     }
-    console.log(historyList);
     return historyList;
   });
 
   ipcMain.handle('write-file', async (_e, file, data) => {
     fs.writeFileSync(file, data);
   });
-
 
   // メインウィンドウに表示するURLを指定します
   // （今回はmain.jsと同じディレクトリのindex.html）
@@ -74,24 +68,3 @@ app.on("window-all-closed", () => {
     app.quit();
   }
 });
-
-
-// // ファイルio関係
-// const fs = require('fs');
-
-// /** ファイルの内容をjsonに変換して返す */
-// function readFile(file){
-//   var historyList = [];
-//   if(fs.existsSync(file)){
-//     var text = fs.readFileSync(file).toString();
-//     try {
-//       historyList = JSON.parse(text);
-//     }catch(e){
-//       // 変換できなかった際は初期値(空配列)のまま
-//     }
-//   }
-//   return historyList;
-// }
-// function writeFile(file, data){
-//   fs.writeFileSync(file, data);
-// }

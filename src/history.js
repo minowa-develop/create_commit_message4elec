@@ -1,29 +1,11 @@
-const fs = require('fs');
-const HISTORY_FILE="history.json"
 const MAX_HISTORY_COUNT=5;
-var historyList = readFile(HISTORY_FILE);
-
-// node側処理(ファイルio関係)
-/** ファイルの内容をjsonに変換して返す */
-function readFile(file){
-  const fs = require('fs');
-  var historyList = [];
-  if(fs.existsSync(file)){
-    var text = fs.readFileSync(file).toString();
-    try {
-      historyList = JSON.parse(text);
-    }catch(e){
-      // 変換できなかった際は初期値(空配列)のまま
-    }
-  }
-  return historyList;
-}
-function writeFile(file, data){
-  fs.writeFileSync(file, data);
-}
+const HISTORY_FILE="history.json"
 
 // 履歴登録
-function registHistory() {
+async function registHistory() {
+  // read history
+  var historyList = await window.myAPI.readFile(HISTORY_FILE);
+
   // oldest remove
   while(historyList.length >= MAX_HISTORY_COUNT){
     historyList.shift();
@@ -33,7 +15,7 @@ function registHistory() {
   historyList.push(convHistoryObj(getObj()));
 
   // write history
-  writeFile(HISTORY_FILE, JSON.stringify(historyList))
+  await window.myAPI.writeFile(HISTORY_FILE, JSON.stringify(historyList))
 
   // drow historylist
   showHistoryList();
@@ -46,7 +28,10 @@ function convHistoryObj(formobj){
 }
 
 // 履歴リスト表示
-function showHistoryList(){
+async function showHistoryList(){
+  // read history
+  var historyList = await window.myAPI.readFile(HISTORY_FILE);
+
   var table = document.getElementById('history_area');
 
   // reset tr
@@ -88,6 +73,8 @@ function convTimestamp(unixtime){
 }
 
 // 履歴呼び出し
-function callHistory(index){
+async function callHistory(index){
+  // read history
+  var historyList = await window.myAPI.readFile(HISTORY_FILE);
   setFormData(historyList[index].form);
 }

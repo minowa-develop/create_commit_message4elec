@@ -1,16 +1,7 @@
 // Node.jsのすべてのAPIがプリロード処理で利用可能です。
-// Chromeの拡張機能と同じサンドボックスを持っています。
-window.addEventListener("DOMContentLoaded", () => {
-  // DOM要素のテキストを変更します
-  const replaceText = (selector, text) => {
-    const element = document.getElementById(selector);
-    if (element) {
-      element.textContent = text;
-    }
-  };
+const { ipcRenderer, contextBridge } = require('electron');
 
-  for (const dependency of ["chrome", "node", "electron"]) {
-    // HTMLページ内の文言を差し替えます
-    replaceText(`${dependency}-version`, process.versions[dependency]);
-  }
+contextBridge.exposeInMainWorld('myAPI', {
+  readFile: (file) => ipcRenderer.invoke('read-file', file),
+  writeFile: (file, data) => ipcRenderer.invoke('write-file', file, data),
 });

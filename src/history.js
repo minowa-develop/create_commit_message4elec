@@ -45,7 +45,7 @@ async function showHistoryList(){
     tr.appendChild(tdTimestamp);
 
     // filename
-    let tdFilename = createTdElementExtends(makeExportFileName(historyList[i].form), 'onclick', 'callHistory', i);
+    let tdFilename = createTdCallHistory(makeExportFileName(historyList[i].form), i);
     tr.appendChild(tdFilename);
 
     table.appendChild(tr);
@@ -60,9 +60,11 @@ function createTdElement(value){
 }
 
 /** valueを表示し、イベントを追加したtd要素を作成 */
-function createTdElementExtends(value,event,func,index){
+function createTdCallHistory(value,index){
   let tdElement = createTdElement(value);
-  tdElement.setAttribute(event, func +'('+ index +')');
+  tdElement.addEventListener('click', async () => {
+    callHistory(index);
+  });
   return tdElement;
 }
 

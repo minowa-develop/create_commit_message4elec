@@ -2,6 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'" />
   <title>コミットメッセージ作成ツール</title>
   <script src="./hoge.js"></script>
   <script src="./history.js"></script>
@@ -14,8 +15,8 @@
       <tr>
         <td class="column">repository:</td>
         <td>
-          <input type="radio" id="documents" name="repository" onclick="createTypeListValues()" checked="true"><label for="documents">documents</label>
-          <input type="radio" id="tools" name="repository" onclick="createTypeListValues()"><label for="tools">tools</label>
+          <input type="radio" id="documents" name="repository" checked="true"><label for="documents">documents</label>
+          <input type="radio" id="tools" name="repository"><label for="tools">tools</label>
         </td>
       </tr>
       <tr>
@@ -31,20 +32,23 @@
       <tr> <td class="column">message:</td> <td><textarea id="message" class="input_elm"></textarea></td> </tr>
       <tr> <td class="column">refs:</td> <td><input type="text" id="refs" class="input_elm" maxlength="5"></td> </tr>
     </table>
-    <div class="make_button_area"> <button onclick="createMessage()">make</button> </div>
+    <div class="make_button_area"> <button id="createMessage">make</button> </div>
   </div>
   <div class="maked_area">
     <textarea id="commit_message"></textarea>
-    <button onclick="copy()">copy</button>
-    <button onclick="initialize()">initialize</button>
+    <button id="copy">copy</button>
+    <button id="initialize">initialize</button>
   </div>
   <div class="export_area">
-    <input type="file" id="import_file" onchange="importData();" accept=".txt">
-    <button onclick="exportData()">export</button>
+    <input type="file" id="import_file" accept=".txt">
+    <button id="exportData">export</button>
   </div>
   <table id="history_area"></table>
   <div class="docs_area">
     <a href="./readme.txt">readme</a>
   </div>
+
+  <!-- add event -->
+  <script src="./addEvents.js"></script>
 </body>
 </html>

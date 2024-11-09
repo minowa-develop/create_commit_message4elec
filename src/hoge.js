@@ -1,6 +1,6 @@
 // typeList
-const documentTypeList = ["add","remove","rename","update"];
 const toolTypeList = ["feat","fix","docs","style","refactor","perf","test","chore"];
+const documentTypeList = ["add","remove","rename","update"];
 
 window.onload = function() {
   // load post method
@@ -43,8 +43,6 @@ function clearTypeList(optionId) {
 // メッセージ作成
 function createMessage(){
   document.getElementById("commit_message").value = createHeader() +"\r\n\r\n"+ document.getElementById("message").value +"\r\n\r\n"+ createRefs();
-  // testdata();
-  registHistory();
 }
 function createHeader(){
   return getTypeValue() + createScope() +": "+ document.getElementById("subject").value;
@@ -75,7 +73,7 @@ function initialize() {
   if(window.confirm('inputed data clear OK?') == false){
     return null;
   }
-  document.getElementById("documents").checked = true;
+  document.getElementById("tools").checked = true;
   createTypeListValues();
   document.getElementById("scope").value = "";
   document.getElementById("subject").value = "";

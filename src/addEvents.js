@@ -7,6 +7,7 @@ document.getElementById('tools').addEventListener('click', async () => {
 
 document.getElementById('createMessage').addEventListener('click', async () => {
   createMessage();
+  registHistory();
 });
 document.getElementById('copy').addEventListener('click', async () => {
   copy();

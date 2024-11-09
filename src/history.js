@@ -1,10 +1,26 @@
 const fs = require('fs');
-
 const HISTORY_FILE="history.json"
 const MAX_HISTORY_COUNT=5;
+var historyList = readFile(HISTORY_FILE);
 
-// read history
-var historyList = readhistoryList();
+// node側処理(ファイルio関係)
+/** ファイルの内容をjsonに変換して返す */
+function readFile(file){
+  const fs = require('fs');
+  var historyList = [];
+  if(fs.existsSync(file)){
+    var text = fs.readFileSync(file).toString();
+    try {
+      historyList = JSON.parse(text);
+    }catch(e){
+      // 変換できなかった際は初期値(空配列)のまま
+    }
+  }
+  return historyList;
+}
+function writeFile(file, data){
+  fs.writeFileSync(file, data);
+}
 
 // 履歴登録
 function registHistory() {
@@ -17,22 +33,10 @@ function registHistory() {
   historyList.push(convHistoryObj(getObj()));
 
   // write history
-  fs.writeFileSync(HISTORY_FILE, JSON.stringify(historyList));
-  
+  writeFile(HISTORY_FILE, JSON.stringify(historyList))
+
   // drow historylist
   showHistoryList();
-}
-function readhistoryList(){
-  var historyList = [];
-  if(fs.existsSync(HISTORY_FILE)){
-    var text = fs.readFileSync(HISTORY_FILE).toString();
-    try {
-      historyList = JSON.parse(text);
-    }catch(e){
-      // 変換できなかった際は初期値(空配列)のまま
-    }
-  }
-  return historyList;
 }
 function convHistoryObj(formobj){
   return {
@@ -52,20 +56,34 @@ function showHistoryList(){
     let tr = document.createElement("tr");
 
     // timestamp
-    let tdTimestamp = document.createElement("td");
-    tdTimestamp.appendChild(document.createTextNode(makeTimestamp(new Date(historyList[i].timestamp))));
+    let tdTimestamp = createTdElement(convTimestamp(historyList[i].timestamp));
     tr.appendChild(tdTimestamp);
 
     // filename
-    let filename = document.createElement("td");
-    filename.appendChild(document.createTextNode(makeExportFileName(historyList[i].form)));
-    filename.setAttribute('onclick', 'callHistory('+ i +')');
-    tr.appendChild(filename);
+    let tdFilename = createTdElementExtends(makeExportFileName(historyList[i].form), 'onclick', 'callHistory', i);
+    tr.appendChild(tdFilename);
 
     table.appendChild(tr);
   }
 }
-function makeTimestamp(date){
+
+/** valueを表示するtd要素を作成 */
+function createTdElement(value){
+  let tdElement = document.createElement("td");
+  tdElement.appendChild(document.createTextNode(value));
+  return tdElement;
+}
+
+/** valueを表示し、イベントを追加したtd要素を作成 */
+function createTdElementExtends(value,event,func,index){
+  let tdElement = createTdElement(value);
+  tdElement.setAttribute(event, func +'('+ index +')');
+  return tdElement;
+}
+
+/** unixタイムを表示用の形式に変換 */
+function convTimestamp(unixtime){
+  const date = new Date(unixtime);
   return date.toLocaleDateString() +' '+ date.toLocaleTimeString();
 }
 

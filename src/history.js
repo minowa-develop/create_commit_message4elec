@@ -68,14 +68,6 @@ function createTdCallSetForm(value,formObj){
   return tdElement;
 }
 
-function createTdCallSetForm(value,formObj){
-  let tdElement = createTdElement(value);
-  tdElement.addEventListener('click', async () => {
-    setFormData(formObj);
-  });
-  return tdElement;
-}
-
 /** unixタイムを表示用の形式に変換 */
 function convTimestamp(unixtime){
   const date = new Date(unixtime);

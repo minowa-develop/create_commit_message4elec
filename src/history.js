@@ -45,7 +45,7 @@ async function showHistoryList(){
     tr.appendChild(tdTimestamp);
 
     // filename
-    let tdFilename = createTdCallHistory(makeExportFileName(historyList[i].form), i);
+    let tdFilename = createTdCallSetForm(makeExportFileName(historyList[i].form), historyList[i].form);
     tr.appendChild(tdFilename);
 
     table.appendChild(tr);
@@ -59,11 +59,19 @@ function createTdElement(value){
   return tdElement;
 }
 
-/** valueを表示し、イベントを追加したtd要素を作成 */
-function createTdCallHistory(value,index){
+/** valueを表示し、form情報をセットするイベントを追加したtd要素を作成 */
+function createTdCallSetForm(value,formObj){
   let tdElement = createTdElement(value);
   tdElement.addEventListener('click', async () => {
-    callHistory(index);
+    setFormData(formObj);
+  });
+  return tdElement;
+}
+
+function createTdCallSetForm(value,formObj){
+  let tdElement = createTdElement(value);
+  tdElement.addEventListener('click', async () => {
+    setFormData(formObj);
   });
   return tdElement;
 }
@@ -72,11 +80,4 @@ function createTdCallHistory(value,index){
 function convTimestamp(unixtime){
   const date = new Date(unixtime);
   return date.toLocaleDateString() +' '+ date.toLocaleTimeString();
-}
-
-// 履歴呼び出し
-async function callHistory(index){
-  // read history
-  var historyList = await window.myAPI.readFile(HISTORY_FILE);
-  setFormData(historyList[index].form);
 }

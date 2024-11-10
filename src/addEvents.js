@@ -21,3 +21,6 @@ document.getElementById('exportData').addEventListener('click', async () => {
 document.getElementById('import_file').addEventListener('change', async () => {
   importData();
 });
+document.getElementById('favoriteRegist').addEventListener('click', async () => {
+  registFavorite();
+});

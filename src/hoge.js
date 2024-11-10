@@ -6,6 +6,7 @@ window.onload = function() {
   // load post method
   createTypeListValues();
   showHistoryList();
+  showFavoriteList();
 }
 
 // repository選択時、typeリスト作成

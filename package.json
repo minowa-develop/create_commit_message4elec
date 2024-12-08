@@ -11,5 +11,9 @@
   "description": "",
   "devDependencies": {
     "electron": "^33.0.2"
+  },
+  "dependencies": {
+    "tsc": "^2.0.4",
+    "typescript": "^5.7.2"
   }
 }

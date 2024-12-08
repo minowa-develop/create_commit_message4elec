@@ -24,14 +24,11 @@ function createTypeList(typeListArr){
   });
 }
 function addOption(value,index) {
-  var option = document.createElement("option");
-  option.text = value;
-  option.value = value;
-  option.selected = false;
   if(index == 0){
     option.selected = true;
   }
   var select = document.getElementById("type");
+  let option = new Option(text, value, defaultSelected);
   select.appendChild(option);
 }
 function clearTypeList(optionId) {

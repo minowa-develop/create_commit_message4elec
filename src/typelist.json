@@ -1,0 +1,24 @@
+[
+  {
+    "kind": "tool",
+    "types": [
+      "feat",
+      "fix",
+      "docs",
+      "style",
+      "refactor",
+      "perf",
+      "test",
+      "chore"
+    ]
+  },
+  {
+    "kind": "document",
+    "types": [
+      "add",
+      "remove",
+      "rename",
+      "update"
+    ]
+  }
+]

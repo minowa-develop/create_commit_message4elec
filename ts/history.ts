@@ -1,6 +1,6 @@
 import { Data } from "./Data";
 import { getData,setFormData } from './DomAccess';
-import { getTableElementById,createTdElement,convTimestamp } from "./common";
+import { getTableElementById,createTdElement,createTdCallSetForm,convTimestamp } from "./common";
 
 const MAX_HISTORY_COUNT=5;
 const HISTORY_FILE="history.json"
@@ -55,11 +55,11 @@ async function showHistoryList(){
     let tr = document.createElement("tr");
 
     // timestamp
-    let tdTimestamp = createTdElement(convTimestamp(historyList[i].timestamp));
+    let tdTimestamp: HTMLTableCellElement = createTdElement(convTimestamp(historyList[i].timestamp));
     tr.appendChild(tdTimestamp);
 
     // filename
-    let tdFilename = createTdCallSetForm(historyList[i].data.makeTitle(), historyList[i].data);
+    let tdFilename: HTMLTableCellElement = createTdCallSetForm(historyList[i].data.makeTitle(), historyList[i].data);
     tr.appendChild(tdFilename);
 
     table.appendChild(tr);

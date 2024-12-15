@@ -71,6 +71,6 @@ export function createTdCallSetForm(value: string, obj: Data): HTMLTableCellElem
 
 /** unixタイムを表示用の形式に変換 */
 export function convTimestamp(unixtime: number): string{
-  const date = new Date(unixtime);
+  const date: Date = new Date(unixtime);
   return date.toLocaleDateString() +' '+ date.toLocaleTimeString();
 }

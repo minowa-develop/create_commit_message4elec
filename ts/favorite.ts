@@ -1,5 +1,5 @@
 import { Data } from "./Data";
-import { getData,setFormData } from './DomAccess';
+import { getData } from './DomAccess';
 import { getTableElementById,createTdElement,createTdCallSetForm } from "./common";
 
 const FAVORITE_FILE="favorite.json"
@@ -7,10 +7,10 @@ const FAVORITE_FILE="favorite.json"
 // 履歴登録
 async function registFavorite() {
   // read history
-  var favoriteList = await window.myAPI.readFile(FAVORITE_FILE);
+  var favoriteList: Data[] = JSON.parse(await window.myAPI.readFile(FAVORITE_FILE) as string);
 
   // add formdata for history
-  favoriteList.push(getObj());
+  favoriteList.push(getData());
 
   // write history
   await window.myAPI.writeFile(FAVORITE_FILE, JSON.stringify(favoriteList))
@@ -24,7 +24,7 @@ async function showFavoriteList(){
   // read history
   let favoriteList: Data[]= JSON.parse(await window.myAPI.readFile(FAVORITE_FILE) as string);
 
-  let table = getTableElementById('favorite_area');
+  let table: HTMLTableElement = getTableElementById('favorite_area');
 
   // reset tr
   while (table.rows.length > 0) table.deleteRow(0);
@@ -33,10 +33,10 @@ async function showFavoriteList(){
     let tr = document.createElement("tr");
 
     // filename
-    let tdFilename = createTdCallSetForm(favoriteList[i].makeCommitMessage(), favoriteList[i]);
+    let tdFilename: HTMLTableCellElement = createTdCallSetForm(favoriteList[i].makeCommitMessage(), favoriteList[i]);
     tr.appendChild(tdFilename);
 
-    let tdDeleteButton = createTdCallDelFavorite("削除", favoriteList, i);
+    let tdDeleteButton: HTMLTableCellElement = createTdCallDelFavorite("削除", favoriteList, i);
     tr.appendChild(tdDeleteButton);
 
     table.appendChild(tr);
@@ -51,7 +51,7 @@ async function showFavoriteList(){
  * @returns 
  */
 function createTdCallDelFavorite(msg: string, favoriteList: Array<Data>, delindex: number): HTMLTableCellElement{
-  let tdElement = createTdElement(msg);
+  let tdElement: HTMLTableCellElement = createTdElement(msg);
   tdElement.addEventListener('click', async () => {
     favoriteList.splice(delindex, 1);
     await window.myAPI.writeFile(FAVORITE_FILE, JSON.stringify(favoriteList));

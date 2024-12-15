@@ -1,7 +1,7 @@
 import { getElementById } from './common';
 import { createMessage, copy, initialize, exportData, importData } from './afterEvent';
 import { registHistory } from './history';
-import { registFavorite } from './favorite';
+// import { registFavorite } from './favorite';
 
 getElementById('createMessage').addEventListener('click', async () => {
   createMessage();
@@ -20,5 +20,5 @@ getElementById('import_file').addEventListener('change', async () => {
   importData();
 });
 getElementById('favoriteRegist').addEventListener('click', async () => {
-  registFavorite();
+  // registFavorite();
 });

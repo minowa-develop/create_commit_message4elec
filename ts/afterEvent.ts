@@ -1,5 +1,5 @@
 import { getInputElementById } from "./common" 
-import { setFormData, getData } from "./hoge";
+import { setFormData, getData } from "./DomAccess";
 import { Data } from "./Data"
 
 // 事後機能

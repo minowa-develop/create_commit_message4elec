@@ -1,6 +1,6 @@
 import { Data } from "./Data";
 import { getData,setFormData } from './DomAccess';
-import { getTableElementById } from "./common";
+import { getTableElementById,createTdElement,convTimestamp } from "./common";
 
 const MAX_HISTORY_COUNT=5;
 const HISTORY_FILE="history.json"
@@ -36,17 +36,15 @@ class HistoryData {
   public toJson(): object{
     return {
       "timestamp": Date.now(),
-      "data": this.data
+      "data": this.data.toJson()
     }
   }
-  
-  public setJson
 }
 
 // 履歴リスト表示
 async function showHistoryList(){
   // read history
-  let historyList: string[] = await window.myAPI.readFile(HISTORY_FILE) as string[];
+  let historyList: HistoryData[] = JSON.parse(await window.myAPI.readFile(HISTORY_FILE) as string) as HistoryData[];
 
   let table: HTMLTableElement = getTableElementById('history_area');
 
@@ -68,24 +66,3 @@ async function showHistoryList(){
   }
 }
 
-/** valueを表示するtd要素を作成 */
-function createTdElement(value){
-  let tdElement = document.createElement("td");
-  tdElement.appendChild(document.createTextNode(value));
-  return tdElement;
-}
-
-/** valueを表示し、form情報をセットするイベントを追加したtd要素を作成 */
-function createTdCallSetForm(value: string,obj: Data): HTMLTableCellElement{
-  let tdElement: HTMLTableCellElement = createTdElement(value);
-  tdElement.addEventListener('click', async () => {
-    setFormData(obj);
-  });
-  return tdElement;
-}
-
-/** unixタイムを表示用の形式に変換 */
-function convTimestamp(unixtime: number): string{
-  const date = new Date(unixtime);
-  return date.toLocaleDateString() +' '+ date.toLocaleTimeString();
-}

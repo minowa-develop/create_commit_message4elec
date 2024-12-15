@@ -1,3 +1,6 @@
+import { Data } from "./Data";
+import { setFormData } from './DomAccess'
+
 // 共通処理
 
 export type INPUT_TAG_ID = "subject"|"scope"|"refs"|"message"|"commit_message"|"import_file";
@@ -36,3 +39,38 @@ interface MyAPI {
   writeFile: (filePath: string, data: string) => Promise<string[]|string>;
 }
 declare global { interface Window { myAPI: MyAPI; } }
+
+
+/** valueを表示するtd要素を作成 */
+export function createTdElement(value): HTMLTableCellElement{
+  let tdElement = document.createElement("td");
+  tdElement.appendChild(document.createTextNode(value));
+  return tdElement;
+}
+
+/**
+ * クリックイベント付きのtdを作成
+ * @param value 表示メッセージ
+ * @param callFunc クリック時の関数
+ * @returns 
+ */
+export function createTdEventForm(value: string, callFunc: Function): HTMLTableCellElement{
+  let tdElement: HTMLTableCellElement = createTdElement(value);
+  tdElement.addEventListener('click', async () => {callFunc});
+  return tdElement;
+}
+
+/** valueを表示し、form情報をセットするイベントを追加したtd要素を作成 */
+export function createTdCallSetForm(value: string, obj: Data): HTMLTableCellElement{
+  let tdElement: HTMLTableCellElement = createTdElement(value);
+  tdElement.addEventListener('click', async () => {
+    setFormData(obj);
+  });
+  return tdElement;
+}
+
+/** unixタイムを表示用の形式に変換 */
+export function convTimestamp(unixtime: number): string{
+  const date = new Date(unixtime);
+  return date.toLocaleDateString() +' '+ date.toLocaleTimeString();
+}

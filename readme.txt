@@ -21,6 +21,8 @@ npm init -y
 ## install electron
 
 npm install -D electron
+npm install -D typescript
+npm install -D tsc
 
 ## 実行
 

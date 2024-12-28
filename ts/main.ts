@@ -1,7 +1,7 @@
 // アプリケーション作成用のモジュールを読み込み
-const { app, BrowserWindow, ipcMain } = require('electron');
-const fs = require('fs');
-const path = require("path");
+import { app, BrowserWindow, ipcMain } from'electron';
+import * as fs from'fs';
+import * as path from"path";
 
 // メインウィンドウ
 let mainWindow;
@@ -14,11 +14,11 @@ const createWindow = () => {
     webPreferences: {
       // プリロードスクリプトは、レンダラープロセスが読み込まれる前に実行され、
       // レンダラーのグローバル（window や document など）と Node.js 環境の両方にアクセスできます。
-      preload: path.join(__dirname, "preload.js"),
+      preload: path.join("preload.js"),
     },
   });
 
-  ipcMain.handle('read-file', async (_e: Event, file: string) => {
+  ipcMain.handle('read-file', async (_e, file: string) => {
     let historyList: string[] = [];
     if(fs.existsSync(file)){
       let text: string = fs.readFileSync(file).toString();
@@ -31,7 +31,7 @@ const createWindow = () => {
     return historyList;
   });
 
-  ipcMain.handle('write-file', async (_e: Event, file: string, data: string) => {
+  ipcMain.handle('write-file', async (_e, file: string, data: string) => {
     fs.writeFileSync(file, data);
   });
 

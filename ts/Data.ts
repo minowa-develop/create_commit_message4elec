@@ -1,4 +1,4 @@
-import { Types } from "./Types";
+import { Types } from "./Types.js";
 
 // input form data
 
@@ -27,7 +27,7 @@ export class Data {
 
   //methods
   public makeCommitMessage(): string{
-    return this.type + this.makeScope() + this.subject + "\r\n\r\n"+ this.message + "\r\n\r\n#"+ this.makeRefs
+    return this.type + this.makeScope() + this.subject + "\r\n\r\n"+ this.message + "\r\n\r\n"+ this.makeRefs();
   }
   private makeScope(): string{
     if(this.scope != null && this.scope.length === 0){
@@ -35,9 +35,9 @@ export class Data {
     }
     return "("+ this.scope +"): "
   }
-  private makeRefs(): string{
-    return "Refs: #"+ this.refs;
-  }
+    private makeRefs(): string{
+      return "Refs: #"+ this.refs;
+    }
 
   /**
    * タイトル名を返す

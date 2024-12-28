@@ -1,6 +1,6 @@
-import { Data } from "./Data";
-import { getData,setFormData } from './DomAccess';
-import { getTableElementById,createTdElement,createTdCallSetForm,convTimestamp } from "./common";
+import { Data } from "./Data.js";
+import { getData,setFormData } from './DomAccess.js';
+import { getTableElementById,createTdElement,createTdCallSetForm,convTimestamp } from "./common.js";
 
 const MAX_HISTORY_COUNT=5;
 const HISTORY_FILE="history.json"

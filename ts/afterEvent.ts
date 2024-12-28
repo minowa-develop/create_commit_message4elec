@@ -1,6 +1,6 @@
-import { getInputElementById } from "./common" 
-import { setFormData, getData } from "./DomAccess";
-import { Data } from "./Data"
+import { getInputElementById } from "./common.js";
+import { setFormData, getData } from "./DomAccess.js";
+import { Data } from "./Data.js";
 
 // 事後機能
 

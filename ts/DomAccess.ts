@@ -1,6 +1,6 @@
-import { getElementById, getSelectElementById, getInputElementById, getTdElementById, TD_TAG_ID, SELECT_TAG_ID } from "./common" 
-import { Types } from "./Types";
-import { Data } from "./Data"
+import { getElementById, getSelectElementById, getInputElementById, getTdElementById, TD_TAG_ID, SELECT_TAG_ID } from "./common.js";
+import { Types } from "./Types.js";
+import { Data } from "./Data.js";
 
 // DOM to Object
 export function getData(): Data{

@@ -1,6 +1,6 @@
-import { Data } from "./Data";
-import { getData } from './DomAccess';
-import { getTableElementById,createTdElement,createTdCallSetForm } from "./common";
+import { Data } from "./Data.js";
+import { getData } from './DomAccess.js';
+import { getTableElementById,createTdElement,createTdCallSetForm } from "./common.js";
 
 const FAVORITE_FILE="favorite.json"
 

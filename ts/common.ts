@@ -1,5 +1,5 @@
-import { Data } from "./Data";
-import { setFormData } from './DomAccess'
+import { Data } from "./Data.js";
+import { setFormData } from './DomAccess.js'
 
 // 共通処理
 

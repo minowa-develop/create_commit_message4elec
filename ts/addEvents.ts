@@ -1,6 +1,6 @@
-import { getElementById } from './common';
-import { createMessage, copy, initialize, exportData, importData } from './afterEvent';
-import { registHistory } from './history';
+import { getElementById } from './common.js';
+import { createMessage, copy, initialize, exportData, importData } from './afterEvent.js';
+import { registHistory } from './history.js';
 // import { registFavorite } from './favorite';
 
 getElementById('createMessage').addEventListener('click', async () => {

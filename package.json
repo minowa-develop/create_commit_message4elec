@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "run": "electron ./src"
+    "run": "electron ./src",
+    "dev": "npm run build && npm run run"
   },
   "keywords": [],
   "author": "",

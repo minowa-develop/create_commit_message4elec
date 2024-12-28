@@ -1,42 +1,38 @@
-import { Types } from "./Types.js";
-
-// input form data
-
 export class Data {
   // fields
-  private repository: string;
-  private type: string;
-  private scope: string;
-  private subject: string;
-  private message: string;
-  private refs: string;
+  private _repository: string;
+  private _type: string;
+  private _scope: string;
+  private _subject: string;
+  private _message: string;
+  private _refs: string;
 
   // get/setter methods
-  public getRepository(): string{ return this.repository }
-  public setRepository(repository: string): void{ this.repository = repository }
-  public getType(): string{ return this.type }
-  public setType(type: string): void{ this.type = type }
-  public getScope(): string{ return this.scope}
-  public setScope(scope: string){ this.scope=scope; }
-  public getSubject(): string{ return this.subject}
-  public setSubject(subject: string){ this.subject=subject; }
-  public getMessage(): string{ return this.message}
-  public setMessage(message: string){ this.message=message; }
-  public getRefs(): string{ return this.refs}
-  public setRefs(refs: string){ this.refs=refs; }
+  public get repository(): string{ return this._repository }
+  public set repository(repository: string){ this._repository = repository }
+  public get type(): string{ return this._type }
+  public set type(type: string){ this._type = type }
+  public get scope(): string{ return this._scope}
+  public set scope(scope: string){ this._scope=scope; }
+  public get subject(): string{ return this._subject}
+  public set subject(subject: string){ this._subject=subject; }
+  public get message(): string{ return this._message}
+  public set message(message: string){ this._message=message; }
+  public get refs(): string{ return this._refs}
+  public set refs(refs: string){ this._refs=refs; }
 
   //methods
   public makeCommitMessage(): string{
-    return this.type + this.makeScope() + this.subject + "\r\n\r\n"+ this.message + "\r\n\r\n"+ this.makeRefs();
+    return this._type + this.makeScope() + this._subject + "\r\n\r\n"+ this._message + "\r\n\r\n"+ this.makeRefs();
   }
   private makeScope(): string{
-    if(this.scope != null && this.scope.length === 0){
+    if(this._scope != null && this._scope.length === 0){
       return "";
     }
-    return "("+ this.scope +"): "
+    return "("+ this._scope +"): "
   }
     private makeRefs(): string{
-      return "Refs: #"+ this.refs;
+      return "Refs: #"+ this._refs;
     }
 
   /**
@@ -45,7 +41,7 @@ export class Data {
    * @returns 
    */
   public makeTitle(): string{
-    return this.refs +'_'+ this.subject;
+    return this._refs +'_'+ this._subject;
   }
   
 
@@ -55,12 +51,12 @@ export class Data {
    */
   public toJson(): object{
     return {
-      "repository": this.repository,
-      "type": this.type,
-      "subject": this.subject,
-      "scope": this.scope,
-      "refs": this.refs,
-      "message": this.message
+      "repository": this._repository,
+      "type": this._type,
+      "subject": this._subject,
+      "scope": this._scope,
+      "refs": this._refs,
+      "message": this._message
     }
   }
 
@@ -69,12 +65,12 @@ export class Data {
    * @param json 
    */
   public setJson(json: Data): void{
-    this.repository = json.getRepository();
-    this.type = json.getType();
-    this.subject = json.getSubject();
-    this.scope = json.getScope();
-    this.refs = json.getRefs();
-    this.message = json.getMessage();
+    // this.repository = json.getRepository();
+    this.type = json.type;
+    this.subject = json.subject;
+    this.scope = json.scope;
+    this.refs = json.refs;
+    this.message = json.message;
   }
 
 }

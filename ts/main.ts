@@ -9,12 +9,14 @@ let mainWindow;
 const createWindow = () => {
   // メインウィンドウを作成します
   mainWindow = new BrowserWindow({
-    width: 1024,
-    height: 768,
+    width: 1600,
+    height: 1200,
+    // width: 1024,
+    // height: 768,
     webPreferences: {
       // プリロードスクリプトは、レンダラープロセスが読み込まれる前に実行され、
       // レンダラーのグローバル（window や document など）と Node.js 環境の両方にアクセスできます。
-      preload: path.join("preload.js"),
+      preload: path.join("./preload.js"),
     },
   });
 

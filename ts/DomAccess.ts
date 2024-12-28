@@ -5,12 +5,12 @@ import { Data } from "./Data.js";
 // DOM to Object
 export function getData(): Data{
   let data: Data = new Data();
-  data.setRepository(selectedRepository()),
-  data.setType(selectedType()),
-  data.setSubject(getInputElementById("subject").value),
-  data.setScope(getInputElementById("scope").value),
-  data.setRefs(getInputElementById("refs").value),
-  data.setMessage(getInputElementById("message").value)
+  data.repository = selectedRepository();
+  data.type = selectedType();
+  data.subject = getInputElementById("subject").value;
+  data.scope = getInputElementById("scope").value;
+  data.refs = getInputElementById("refs").value;
+  data.message = getInputElementById("message").value;
   return data;
 }
 
@@ -27,16 +27,16 @@ function selectedType(): string{
  */
 export function setFormData(obj: Data): void{
   // repositories
-  let settingTypes: Types = createRepositories(readRepositories(), obj.getRepository());
+  let settingTypes: Types = createRepositories(readRepositories(), obj.repository);
 
   // types
   createTypes(settingTypes.getTypes());
 
-  selectType(obj.getType());
-  getInputElementById("subject").value = obj.getSubject();
-  getInputElementById("scope").value = obj.getScope();
-  getInputElementById("refs").value = obj.getRefs();
-  getInputElementById("message").value = obj.getMessage();
+  selectType(obj.type);
+  getInputElementById("subject").value = obj.subject;
+  getInputElementById("scope").value = obj.scope;
+  getInputElementById("refs").value = obj.refs;
+  getInputElementById("message").value = obj.message;
 }
 
 

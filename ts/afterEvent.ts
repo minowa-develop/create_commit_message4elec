@@ -53,6 +53,6 @@ export function exportData(): void{
   const blob = new Blob([ JSON.stringify(obj)],{type:"text/plain"});
   const link = document.createElement('a');
   link.href = URL.createObjectURL(blob);
-  link.download = obj.makeTitle +'.txt';
+  link.download = obj.makeTitle() +'.txt';
   link.click();
 }

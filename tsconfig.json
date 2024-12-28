@@ -2,6 +2,7 @@
   "compilerOptions": {
     "outDir": "./src",  // コンパイルしたファイルの出力先ディレクトリ
     "rootDir": "./ts",  // ソースファイルのルートディレクトリ
-    "module": "NodeNext"
+    "module": "NodeNext",
+    "sourceMap": true
   }
 }

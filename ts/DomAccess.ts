@@ -1,16 +1,16 @@
-import { getElementById, getSelectElementById, getInputElementById, getTdElementById, TD_TAG_ID, SELECT_TAG_ID } from "./common.js";
+import * as Common from "./common.js";
 import { Types } from "./Types.js";
 import { Data } from "./Data.js";
 
 // DOM to Object
 export function getData(): Data{
   let data: Data = new Data();
-  data.repository = selectedRepository();
+  // data.repository = selectedRepository();
   data.type = selectedType();
-  data.subject = getInputElementById("subject").value;
-  data.scope = getInputElementById("scope").value;
-  data.refs = getInputElementById("refs").value;
-  data.message = getInputElementById("message").value;
+  data.subject = Common.getInputElementById("subject").value;
+  data.scope = Common.getInputElementById("scope").value;
+  data.refs = Common.getInputElementById("refs").value;
+  data.message = Common.getInputElementById("message").value;
   return data;
 }
 
@@ -27,21 +27,21 @@ function selectedType(): string{
  */
 export function setFormData(obj: Data): void{
   // repositories
-  let settingTypes: Types = createRepositories(readRepositories(), obj.repository);
+  // let settingTypes: Types = createRepositories(readRepositories(), obj.repository);
 
   // types
-  createTypes(settingTypes.getTypes());
+  // createTypes(settingTypes.getTypes());
 
   selectType(obj.type);
-  getInputElementById("subject").value = obj.subject;
-  getInputElementById("scope").value = obj.scope;
-  getInputElementById("refs").value = obj.refs;
-  getInputElementById("message").value = obj.message;
+  Common.getInputElementById("subject").value = obj.subject;
+  Common.getInputElementById("scope").value = obj.scope;
+  Common.getInputElementById("refs").value = obj.refs;
+  Common.getInputElementById("message").value = obj.message;
 }
 
 
 function selectType(selectedValue): void{
-  let select_childs: HTMLSelectElement = getSelectElementById("types");
+  let select_childs: HTMLSelectElement = Common.getSelectElementById("types");
   for(let i=0;i<select_childs.length;i++){
     let child: HTMLOptionElement = select_childs.children[i] as HTMLOptionElement;
     if(child.value == selectedValue){
@@ -74,7 +74,7 @@ function createRepoAndTypes(): void{
  * @returns 
  */
 function createRepositories(repositories: Types[], selectedRepository: String|null): Types{
-  let element: HTMLTableCellElement = getTdElementById("repositories");
+  let element: HTMLTableCellElement = Common.getTdElementById("repositories");
   clearChildElement("repositories");
 
   let useFirstRepository: boolean;
@@ -112,7 +112,7 @@ function readRepositories(): Types[]{
  * @param typeListArr 
  */
 function createTypes(typeListArr: string[]): void{
-  let select: HTMLSelectElement = getSelectElementById("types");
+  let select: HTMLSelectElement = Common.getSelectElementById("types");
   clearChildElement("types");
   typeListArr.forEach((elem, index) => {
     let selected: boolean = false;
@@ -163,8 +163,8 @@ function createRadioElement(value: string, checked: boolean): HTMLInputElement {
  * @param id 
  * @returns 
  */
-function getSelectedChildElement(id: TD_TAG_ID|SELECT_TAG_ID): HTMLOptionElement{
-  let element: HTMLElement = getElementById(id);
+function getSelectedChildElement(id: Common.TD_TAG_ID|Common.SELECT_TAG_ID): HTMLOptionElement{
+  let element: HTMLElement = Common.getElementById(id);
 
   let selectedElement: HTMLOptionElement;
   element.childNodes.forEach((child: HTMLOptionElement)=>{
@@ -179,9 +179,16 @@ function getSelectedChildElement(id: TD_TAG_ID|SELECT_TAG_ID): HTMLOptionElement
  * 指定したIDの子要素を削除
  * @param id 
  */
-function clearChildElement(id: TD_TAG_ID|SELECT_TAG_ID): void{
-  let element: HTMLElement = getElementById(id);
+export function clearChildElement(id: Common.TD_TAG_ID|Common.SELECT_TAG_ID): void{
+  let element: HTMLElement = Common.getElementById(id);
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+}
+
+export function uncheckChildElement(id: Common.Id): void{
+  let element: HTMLInputElement = Common.getElementById(id);
   element.childNodes.forEach((child: HTMLElement)=>{
-    element.remove();
+    element.checked = false;
   });
 }

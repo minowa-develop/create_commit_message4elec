@@ -1,6 +1,7 @@
-import { getInputElementById } from "./common.js";
-import { setFormData, getData } from "./DomAccess.js";
+import { getInputElementById, } from "./common.js";
+import { setFormData, getData, uncheckChildElement } from "./DomAccess.js";
 import { Data } from "./Data.js";
+import { createTypeListValues } from "./typelist.js";
 
 // 事後機能
 
@@ -25,6 +26,8 @@ export function initialize(): void{
   if(window.confirm('inputed data clear OK?') == false){
     return null;
   }
+  getInputElementById("tools").checked = true;
+  createTypeListValues();
   setFormData(new Data());
   getInputElementById("commit_message").value = "";
   getInputElementById("import_file").value = "";
@@ -42,6 +45,9 @@ export function importData(): void{
     // reader.result がファイルの中身
     let obj: Data = new Data();
     obj.setJson(JSON.parse(reader.result as string));
+    uncheckChildElement("repositories");
+    getInputElementById("documents").checked = obj.documents;
+    createTypeListValues();
     setFormData(obj);
     getInputElementById("commit_message").value = obj.makeCommitMessage();
     getInputElementById("import_file").value = "";

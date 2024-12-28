@@ -2,7 +2,15 @@ import { getElementById } from './common.js';
 import { createMessage, copy, initialize, exportData, importData } from './afterEvent.js';
 import { registHistory } from './history.js';
 // import { registFavorite } from './favorite';
+import { createTypeListValues } from './typelist.js';
+import { showHistoryList } from './history.js';
 
+getElementById('tools').addEventListener('click', async () => {
+  createTypeListValues();
+});
+getElementById('documents').addEventListener('click', async () => {
+  createTypeListValues();
+});
 getElementById('createMessage').addEventListener('click', async () => {
   createMessage();
   registHistory();
@@ -22,3 +30,10 @@ getElementById('import_file').addEventListener('change', async () => {
 getElementById('favoriteRegist').addEventListener('click', async () => {
   // registFavorite();
 });
+
+window.onload = function() {
+  // load post method
+  createTypeListValues();
+  showHistoryList();
+  // showFavoriteList();
+}

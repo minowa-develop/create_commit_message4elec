@@ -1,15 +1,18 @@
 export class Data {
   // fields
-  private _repository: string;
-  private _type: string;
-  private _scope: string;
-  private _subject: string;
-  private _message: string;
-  private _refs: string;
+  private _repository: string = "";
+  private _documents: boolean = false;
+  private _type: string = "feat";
+  private _scope: string = "";
+  private _subject: string = "";
+  private _message: string = "";
+  private _refs: string = "";
 
   // get/setter methods
   public get repository(): string{ return this._repository }
   public set repository(repository: string){ this._repository = repository }
+  public get documents(): boolean{ return this._documents }
+  public set documents(documents: boolean){ this._documents = documents }
   public get type(): string{ return this._type }
   public set type(type: string){ this._type = type }
   public get scope(): string{ return this._scope}
@@ -65,7 +68,8 @@ export class Data {
    * @param json 
    */
   public setJson(json: Data): void{
-    // this.repository = json.getRepository();
+    // this.repository = json.repository();
+    this.documents = json.documents;
     this.type = json.type;
     this.subject = json.subject;
     this.scope = json.scope;

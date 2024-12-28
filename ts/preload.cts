@@ -1,5 +1,5 @@
-// Node.jsのすべてのAPIがプリロード処理で利用可能です。
-import { ipcRenderer, contextBridge } from 'electron';
+// cjsモジュールではないと駄目みたい
+const { ipcRenderer, contextBridge } = require('electron');
 
 contextBridge.exposeInMainWorld('myAPI', {
   readFile: (filename: string) => ipcRenderer.invoke('read-file', filename),

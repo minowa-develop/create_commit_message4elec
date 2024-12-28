@@ -42,7 +42,7 @@ class HistoryData {
 }
 
 // 履歴リスト表示
-async function showHistoryList(){
+export async function showHistoryList(){
   // read history
   let historyList: HistoryData[] = JSON.parse(await window.myAPI.readFile(HISTORY_FILE) as string) as HistoryData[];
 

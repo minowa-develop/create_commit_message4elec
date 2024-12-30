@@ -1,5 +1,6 @@
 import { Data } from "./Data.js";
 import { setFormData } from './DomAccess.js'
+import { HistoryData } from './history.js'
 
 // 共通処理
 
@@ -36,8 +37,8 @@ export function getTableElementById(id: TABLE_TAG_ID): HTMLTableElement{
 
 // electron preload
 interface MyAPI {
-  readFile: (filePath: string) => Promise<string[]|string>;
-  writeFile: (filePath: string, data: string) => Promise<string[]|string>;
+  readFile: (filePath: string) => Promise<string[]|string|Array<HistoryData>>;
+  writeFile: (filePath: string, data: string) => Promise<string>;
 }
 declare global { interface Window { myAPI: MyAPI; } }
 

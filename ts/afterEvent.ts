@@ -2,10 +2,12 @@ import { getInputElementById, } from "./common.js";
 import { setFormData, getData } from "./DomAccess.js";
 import { Data } from "./Data.js";
 import { createTypeListValues } from "./typelist.js";
+import { showHistoryList } from "./history.js";
 
 export function createMessage():void{
   var obj = getData();
   getInputElementById("commit_message").value = obj.makeCommitMessage();
+  showHistoryList();
 }
 
 /**

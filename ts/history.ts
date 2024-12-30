@@ -1,5 +1,5 @@
 import { Data } from "./Data.js";
-import { getData,setFormData } from './DomAccess.js';
+import { getData } from './DomAccess.js';
 import { getTableElementById,createTdElement,createTdCallSetForm,convTimestamp } from "./common.js";
 
 const MAX_HISTORY_COUNT=5;
@@ -8,7 +8,7 @@ const HISTORY_FILE="history.json"
 // 履歴登録
 export async function registHistory(){
   // read history
-  let historyList: string[] = await window.myAPI.readFile(HISTORY_FILE) as string[];
+  let historyList: Array<HistoryData> = jsonListToHistoryList(await window.myAPI.readFile(HISTORY_FILE) as Array<HistoryData>);
 
   // oldest remove
   while(historyList.length >= MAX_HISTORY_COUNT){
@@ -16,27 +16,58 @@ export async function registHistory(){
   }
 
   // add formdata for history
-  historyList.push(JSON.stringify(new HistoryData(getData()).toJson()));
+  historyList.push(new HistoryData(getData()));
 
   // write history
-  await window.myAPI.writeFile(HISTORY_FILE, JSON.stringify(historyList))
+  await window.myAPI.writeFile(HISTORY_FILE, JSON.stringify(toJsonList(historyList)))
 
   // drow historylist
   showHistoryList();
 }
-class HistoryData {
-  // fields
-  timestamp: number;
-  data: Data;
 
-  constructor(data: Data){
-    this.data = data;
+/**
+ * jsonListをHistoryDataListに変換
+ * @param rawList 
+ * @returns 
+ */
+function jsonListToHistoryList(rawList: Array<HistoryData>): Array<HistoryData>{
+  let historyList: Array<HistoryData> = [];
+  rawList.forEach((value: HistoryData) => {
+    let historyData = new HistoryData(value.data);
+    historyData.timestamp = value.timestamp;
+    historyList.push(historyData);
+  });
+  return historyList;
+}
+
+function toJsonList(list: Array<HistoryData>): object[]{
+  let jsonList: object[] = [];
+  list.forEach((value: HistoryData) => {
+    jsonList.push(value.toJson());
+  });
+  return jsonList;
+}
+
+export class HistoryData {
+  // fields
+  private _timestamp: number;
+  private _data: Data = new Data();
+
+  // get/setter methods
+  public get timestamp(): number{ return this._timestamp }
+  public set timestamp(timestamp: number){ this._timestamp = timestamp }
+  public get data(): Data{ return this._data }
+  public set data(data: Data){ this._data = data }
+
+  constructor(jsonData: Data){
+    this._timestamp = Date.now();
+    this._data.setJson(jsonData);
   }
 
   public toJson(): object{
     return {
-      "timestamp": Date.now(),
-      "data": this.data.toJson()
+      "timestamp": this._timestamp,
+      "data": this._data.toJson()
     }
   }
 }
@@ -44,7 +75,7 @@ class HistoryData {
 // 履歴リスト表示
 export async function showHistoryList(){
   // read history
-  let historyList: HistoryData[] = JSON.parse(await window.myAPI.readFile(HISTORY_FILE) as string) as HistoryData[];
+  let historyList: Array<HistoryData> = jsonListToHistoryList(await window.myAPI.readFile(HISTORY_FILE) as Array<HistoryData>);
 
   let table: HTMLTableElement = getTableElementById('history_area');
 

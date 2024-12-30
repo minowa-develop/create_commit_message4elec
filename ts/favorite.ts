@@ -79,7 +79,7 @@ function createTdCallDelFavorite(msg: string, favoriteList: Array<Data>, delinde
   let tdElement: HTMLTableCellElement = createTdElement(msg);
   tdElement.addEventListener('click', async () => {
     favoriteList.splice(delindex, 1);
-    await window.myAPI.writeFile(FAVORITE_FILE, JSON.stringify(favoriteList));
+    await window.myAPI.writeFile(FAVORITE_FILE, JSON.stringify(toJsonList(favoriteList)));
     showFavoriteList();
   });
   return tdElement;

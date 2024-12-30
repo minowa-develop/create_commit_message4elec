@@ -1,38 +1,16 @@
-# make develop environment
+# Readme
 
-## install node
+コミット作成ツールのelectron版です、履歴やお気に入りの機能が追加されています
+これはソースなのでビルドして使用してください
 
-### install fnm
+## build方法
 
-curl -fsSL https://fnm.vercel.app/install | bash
+1. `npm install`
+1. `npm run makePackage`
 
-### activate fnm
+## タスク
 
-source ~/.bashrc
-
-### download and install Node.js
-
-fnm use --install-if-missing 22
-
-## initialize npm
-
-npm init -y
-
-## install electron
-
-npm install -D electron
-npm install -D typescript
-npm install -D tsc
-
-## 実行
-
-npx electron ./src
-
-## build
-
-npm install -D electron-packager
-npx electron-packager src FirstApp --platform=win32 --arch=x64 --overwrite
-
-## 参考
-
-<https://ics.media/entry/7298/>
+- dev
+  開発用で、トランスパイルしてからelectronで開きます
+- makePackage
+  トランスパイルしてからelectronのパッケージを作成します

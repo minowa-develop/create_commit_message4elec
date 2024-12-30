@@ -1,5 +1,4 @@
-import { Data } from "./Data.js";
-import { getData } from './DomAccess.js';
+import { Data, getData } from "./Data.js";
 import { getTableElementById,createTdCallSetForm,createButtonElement } from "./common.js";
 
 const FAVORITE_FILE="favorite.json"

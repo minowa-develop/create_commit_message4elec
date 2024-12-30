@@ -1,5 +1,4 @@
-import { Data } from "./Data.js";
-import { setFormData } from './DomAccess.js'
+import { Data, setFormData } from "./Data.js";
 import { HistoryData } from './history.js'
 
 export type INPUT_TAG_ID = "documents"|"tools"|"subject"|"scope"|"refs"|"message"|"commit_message"|"import_file";

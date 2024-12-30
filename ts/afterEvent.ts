@@ -1,9 +1,11 @@
 import { getInputElementById, } from "./common.js";
-import { setFormData, getData } from "./DomAccess.js";
-import { Data } from "./Data.js";
+import { Data, setFormData, getData } from "./Data.js";
 import { createTypeListValues } from "./typelist.js";
 import { showHistoryList } from "./history.js";
 
+/**
+ * コミットメッセージ作成などの処理を行う
+ */
 export function createMessage():void{
   var obj = getData();
   getInputElementById("commit_message").value = obj.makeCommitMessage();

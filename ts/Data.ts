@@ -1,3 +1,6 @@
+import { getInputElementById, getSelectedChildElement } from "./common.js";
+import { createTypeListValues, setRepositories,selectType } from "./typelist.js";
+
 export class Data {
   // fields
   private _repository: string = "";
@@ -76,5 +79,35 @@ export class Data {
     this.refs = json.refs;
     this.message = json.message;
   }
-
 }
+
+/**
+ * Domからobject情報を取得
+ * @returns 
+ */
+export function getData(): Data{
+  let data: Data = new Data();
+  data.documents = getInputElementById("documents").checked;
+  data.type = getSelectedChildElement("types").value;
+  data.subject = getInputElementById("subject").value;
+  data.scope = getInputElementById("scope").value;
+  data.refs = getInputElementById("refs").value;
+  data.message = getInputElementById("message").value;
+  return data;
+}
+
+/**
+ * object情報をform(DOM)にセット
+ * @param obj 
+ */
+export function setFormData(obj: Data): void{
+  setRepositories(obj.documents);
+  createTypeListValues();
+  selectType(obj.type);
+  getInputElementById("subject").value = obj.subject;
+  getInputElementById("scope").value = obj.scope;
+  getInputElementById("refs").value = obj.refs;
+  getInputElementById("message").value = obj.message;
+}
+
+

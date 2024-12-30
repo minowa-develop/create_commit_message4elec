@@ -1,5 +1,4 @@
-import { Data } from "./Data.js";
-import { getData } from './DomAccess.js';
+import { Data, getData } from "./Data.js";
 import { getTableElementById,createTdElement,createTdCallSetForm,convTimestamp } from "./common.js";
 
 const MAX_HISTORY_COUNT=5;

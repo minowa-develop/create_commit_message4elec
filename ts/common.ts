@@ -37,7 +37,7 @@ export function getTableElementById(id: TABLE_TAG_ID): HTMLTableElement{
 
 // electron preload
 interface MyAPI {
-  readFile: (filePath: string) => Promise<string[]|string|Array<HistoryData>>;
+  readFile: (filePath: string) => Promise<string[]|string|Array<HistoryData>|Array<Data>>;
   writeFile: (filePath: string, data: string) => Promise<string>;
 }
 declare global { interface Window { myAPI: MyAPI; } }

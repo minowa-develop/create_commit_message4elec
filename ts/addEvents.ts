@@ -1,9 +1,9 @@
 import { getElementById } from './common.js';
 import { createMessage, copy, initialize, exportData, importData } from './afterEvent.js';
 import { registHistory } from './history.js';
-// import { registFavorite } from './favorite';
 import { createTypeListValues } from './typelist.js';
 import { showHistoryList } from './history.js';
+import { registFavorite,showFavoriteList } from './favorite.js';
 
 getElementById('tools').addEventListener('click', async () => {
   createTypeListValues();
@@ -28,12 +28,12 @@ getElementById('import_file').addEventListener('change', async () => {
   importData();
 });
 getElementById('favoriteRegist').addEventListener('click', async () => {
-  // registFavorite();
+  registFavorite();
 });
 
 window.onload = function() {
   // load post method
   createTypeListValues();
   showHistoryList();
-  // showFavoriteList();
+  showFavoriteList();
 }

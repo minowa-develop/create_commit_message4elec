@@ -5,24 +5,49 @@ import { getTableElementById,createTdElement,createTdCallSetForm } from "./commo
 const FAVORITE_FILE="favorite.json"
 
 // 履歴登録
-async function registFavorite() {
+export async function registFavorite() {
   // read history
-  var favoriteList: Data[] = JSON.parse(await window.myAPI.readFile(FAVORITE_FILE) as string);
+  var favoriteList: Data[] = toDataList(await window.myAPI.readFile(FAVORITE_FILE) as Array<Data>);
 
   // add formdata for history
   favoriteList.push(getData());
 
   // write history
-  await window.myAPI.writeFile(FAVORITE_FILE, JSON.stringify(favoriteList))
+  await window.myAPI.writeFile(FAVORITE_FILE, JSON.stringify(toJsonList(favoriteList)))
 
   // drow favoriteList
   showFavoriteList();
 }
 
+
+/**
+ * jsonListをDataListに変換
+ * @param rawList 
+ * @returns 
+ */
+function toDataList(rawList: Array<Data>): Array<Data>{
+  let list: Array<Data> = [];
+  rawList.forEach((value: Data) => {
+    let data = new Data();
+    data.setJson(value);
+    list.push(data);
+  });
+  return list;
+}
+
+function toJsonList(list: Array<Data>): object[]{
+  let jsonList: object[] = [];
+  list.forEach((value: Data) => {
+    jsonList.push(value.toJson());
+  });
+  return jsonList;
+}
+
+
 // 履歴リスト表示
-async function showFavoriteList(){
+export async function showFavoriteList(){
   // read history
-  let favoriteList: Data[]= JSON.parse(await window.myAPI.readFile(FAVORITE_FILE) as string);
+  let favoriteList: Data[] = toDataList(await window.myAPI.readFile(FAVORITE_FILE) as Array<Data>);
 
   let table: HTMLTableElement = getTableElementById('favorite_area');
 
@@ -33,7 +58,7 @@ async function showFavoriteList(){
     let tr = document.createElement("tr");
 
     // filename
-    let tdFilename: HTMLTableCellElement = createTdCallSetForm(favoriteList[i].makeCommitMessage(), favoriteList[i]);
+    let tdFilename: HTMLTableCellElement = createTdCallSetForm(favoriteList[i].makeTitle(), favoriteList[i]);
     tr.appendChild(tdFilename);
 
     let tdDeleteButton: HTMLTableCellElement = createTdCallDelFavorite("削除", favoriteList, i);

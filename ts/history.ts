@@ -8,7 +8,7 @@ const HISTORY_FILE="history.json"
 // 履歴登録
 export async function registHistory(){
   // read history
-  let historyList: Array<HistoryData> = toHistoryList(await window.myAPI.readFile(HISTORY_FILE) as Array<HistoryData>);
+  let historyList: Array<HistoryData> = await readList();
 
   // oldest remove
   while(historyList.length >= MAX_HISTORY_COUNT){
@@ -30,7 +30,8 @@ export async function registHistory(){
  * @param rawList 
  * @returns 
  */
-function toHistoryList(rawList: Array<HistoryData>): Array<HistoryData>{
+async function readList(): Promise<HistoryData[]>{
+  let rawList = await window.myAPI.readFile(HISTORY_FILE) as Array<HistoryData>;
   let historyList: Array<HistoryData> = [];
   rawList.forEach((value: HistoryData) => {
     let historyData = new HistoryData(value.data);
@@ -75,7 +76,7 @@ export class HistoryData {
 // 履歴リスト表示
 export async function showHistoryList(){
   // read history
-  let historyList: Array<HistoryData> = toHistoryList(await window.myAPI.readFile(HISTORY_FILE) as Array<HistoryData>);
+  let historyList: Array<HistoryData> = await readList();
 
   let table: HTMLTableElement = getTableElementById('history_area');
 

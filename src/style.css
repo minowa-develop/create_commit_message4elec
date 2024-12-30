@@ -1,7 +1,12 @@
-.input_area{
+.main{
+  float: left;
+  overflow: auto;
+  margin-right: 1em;
+}
+.area{
   border: 1px solid;
-  padding: 0.5em;
   width: fit-content;
+  padding: 0.5em;
 }
 .left{
   float: left;
@@ -37,19 +42,9 @@
   width: 40em;
   height: 15em;
 }
-/* #import_file{
-  display:none;
+.export_area{
+  margin-bottom: 1em;
 }
-.file-buttonlize {
-  border: solid 1px darkslategray;
-  border-radius: 3px;
-  background: buttonface;
-  text-rendering: auto;
-  color: buttontext;
-  padding: 0.1em 0.5em;
-  font-size: 14px;
-  font-family: "Arial" ;
+.favorite_area{
+  overflow: auto;
 }
-.file-buttonlize:hover {
-  background: lightgray;
-} */

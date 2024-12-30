@@ -2,8 +2,6 @@ import { Data } from "./Data.js";
 import { setFormData } from './DomAccess.js'
 import { HistoryData } from './history.js'
 
-// 共通処理
-
 export type INPUT_TAG_ID = "documents"|"tools"|"subject"|"scope"|"refs"|"message"|"commit_message"|"import_file";
 export type TD_TAG_ID = "repositories";
 export type SELECT_TAG_ID = "types";
@@ -44,10 +42,18 @@ declare global { interface Window { myAPI: MyAPI; } }
 
 
 /** valueを表示するtd要素を作成 */
-export function createTdElement(value): HTMLTableCellElement{
+export function createTdElement(value: string): HTMLTableCellElement{
   let tdElement = document.createElement("td");
   tdElement.appendChild(document.createTextNode(value));
   return tdElement;
+}
+
+/** valueを表示するボタン要素を作成 */
+export function createButtonElement(value: string): HTMLInputElement{
+  let elm = document.createElement("input");
+  elm.type = "button";
+  elm.value = value;
+  return elm;
 }
 
 /**
@@ -98,13 +104,14 @@ export function uncheckChildElement(id: Id): void{
     child.checked = false;
   });
 }
+
 /**
  * 指定したIDの子要素の中で選択状態の要素を返す
  * @param id 
  * @returns 
  */
-export function getSelectedChildElement(id: Id): HTMLOptionElement{
-  let element: HTMLSelectElement = getElementById(id);
+export function getSelectedChildElement(id: SELECT_TAG_ID): HTMLOptionElement{
+  let element: HTMLSelectElement = getSelectElementById(id);
   let ckeckedElement: HTMLOptionElement;
   element.childNodes.forEach((child: HTMLOptionElement)=>{
     if(child.selected){

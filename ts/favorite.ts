@@ -1,13 +1,13 @@
 import { Data } from "./Data.js";
 import { getData } from './DomAccess.js';
-import { getTableElementById,createTdElement,createTdCallSetForm } from "./common.js";
+import { getTableElementById,createTdCallSetForm,createButtonElement } from "./common.js";
 
 const FAVORITE_FILE="favorite.json"
 
 // 履歴登録
 export async function registFavorite() {
   // read history
-  var favoriteList: Data[] = toDataList(await window.myAPI.readFile(FAVORITE_FILE) as Array<Data>);
+  var favoriteList: Data[] = await readList();
 
   // add formdata for history
   favoriteList.push(getData());
@@ -19,13 +19,13 @@ export async function registFavorite() {
   showFavoriteList();
 }
 
-
 /**
  * jsonListをDataListに変換
  * @param rawList 
  * @returns 
  */
-function toDataList(rawList: Array<Data>): Array<Data>{
+async function readList(): Promise<Data[]>{
+  let rawList = await window.myAPI.readFile(FAVORITE_FILE) as Array<Data>
   let list: Array<Data> = [];
   rawList.forEach((value: Data) => {
     let data = new Data();
@@ -43,12 +43,12 @@ function toJsonList(list: Array<Data>): object[]{
   return jsonList;
 }
 
-
-// 履歴リスト表示
+/**
+ * リスト表示
+ */
 export async function showFavoriteList(){
   // read history
-  let favoriteList: Data[] = toDataList(await window.myAPI.readFile(FAVORITE_FILE) as Array<Data>);
-
+  let favoriteList: Data[] = await readList();
   let table: HTMLTableElement = getTableElementById('favorite_area');
 
   // reset tr
@@ -57,10 +57,11 @@ export async function showFavoriteList(){
   for (var i = favoriteList.length-1; 0 <= i; i--) {
     let tr = document.createElement("tr");
 
-    // filename
+    // title
     let tdFilename: HTMLTableCellElement = createTdCallSetForm(favoriteList[i].makeTitle(), favoriteList[i]);
     tr.appendChild(tdFilename);
 
+    // delete button
     let tdDeleteButton: HTMLTableCellElement = createTdCallDelFavorite("削除", favoriteList, i);
     tr.appendChild(tdDeleteButton);
 
@@ -69,18 +70,20 @@ export async function showFavoriteList(){
 }
 
 /**
- * 
+ * 削除用のボタン作成
  * @param msg 表示メッセージ
  * @param favoriteList 
  * @param delindex 削除対象の配列番号
  * @returns 
  */
 function createTdCallDelFavorite(msg: string, favoriteList: Array<Data>, delindex: number): HTMLTableCellElement{
-  let tdElement: HTMLTableCellElement = createTdElement(msg);
-  tdElement.addEventListener('click', async () => {
+  let button: HTMLInputElement = createButtonElement(msg);
+  button.addEventListener('click', async () => {
     favoriteList.splice(delindex, 1);
     await window.myAPI.writeFile(FAVORITE_FILE, JSON.stringify(toJsonList(favoriteList)));
     showFavoriteList();
   });
+  let tdElement: HTMLTableCellElement  = document.createElement("td");
+  tdElement.appendChild(button);
   return tdElement;
 }

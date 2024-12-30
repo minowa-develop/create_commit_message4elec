@@ -8,49 +8,54 @@
 </head>
 <body>
   <h1>コミットメッセージ作成ツール</h1>
-  <div class="input_area">
-    <table class="left">
-      <tr>
-        <td class="column">repository:</td>
-        <td id="repositories">
-          <input type="radio" id="tools" name="repository" checked="true"><label for="tools">tools</label>
-          <input type="radio" id="documents" name="repository"><label for="documents">documents</label>
-        </td>
-      </tr>
-      <tr>
-        <td class="column">type:</td>
-        <td>
-          <select size="2" id="types"></select>
-        </td>
-      </tr>
-    </table>
-    <table class="right">
-      <tr> <td class="column">scope:</td> <td><input type="text" id="scope" class="input_elm"></td> </tr>
-      <tr> <td class="column">subject:</td> <td><input type="text" id="subject" class="input_elm"></td> </tr>
-      <tr> <td class="column">message:</td> <td><textarea id="message" class="input_elm"></textarea></td> </tr>
-      <tr> <td class="column">refs:</td> <td><input type="text" id="refs" class="input_elm" maxlength="5"></td> </tr>
-    </table>
-    <div class="make_button_area"> <button id="createMessage">make</button> </div>
+  <div class="main">
+    <div class="input_area area">
+      <table class="left">
+        <tr>
+          <td class="column">repository:</td>
+          <td id="repositories">
+            <input type="radio" id="tools" name="repository" checked="true"><label for="tools">tools</label>
+            <input type="radio" id="documents" name="repository"><label for="documents">documents</label>
+          </td>
+        </tr>
+        <tr>
+          <td class="column">type:</td>
+          <td>
+            <select size="2" id="types"></select>
+          </td>
+        </tr>
+      </table>
+      <table class="right">
+        <tr> <td class="column">scope:</td> <td><input type="text" id="scope" class="input_elm"></td> </tr>
+        <tr> <td class="column">subject:</td> <td><input type="text" id="subject" class="input_elm"></td> </tr>
+        <tr> <td class="column">message:</td> <td><textarea id="message" class="input_elm"></textarea></td> </tr>
+        <tr> <td class="column">refs:</td> <td><input type="text" id="refs" class="input_elm" maxlength="5"></td> </tr>
+      </table>
+      <div class="make_button_area"> <button id="createMessage">make</button> </div>
+    </div>
+    <div class="maked_area">
+      <textarea id="commit_message" class="area"></textarea>
+      <button id="copy">copy</button>
+      <button id="initialize">initialize</button>
+    </div>
+    <div class="export_area">
+      <input type="file" id="import_file" accept=".txt">
+      <button id="exportData">export</button>
+      <button id="favoriteRegist">regist favorite</button>
+    </div>
+    
+    <div class="history_area area">
+      <b>History</b>
+      <table id="history_area"></table>
+    </div>
+    
+    <div class="docs_area">
+      <a href="./readme.txt">readme</a>
+    </div>
   </div>
-  <div class="maked_area">
-    <textarea id="commit_message"></textarea>
-    <button id="copy">copy</button>
-    <button id="initialize">initialize</button>
-  </div>
-  <div class="export_area">
-    <input type="file" id="import_file" accept=".txt">
-    <button id="exportData">export</button>
-    <button id="favoriteRegist">regist favorite</button>
-  </div>
-  
-  <h2>お気に入り</h2>
-  <table id="favorite_area"></table>
-  
-  <h2>履歴</h2>
-  <table id="history_area"></table>
-  
-  <div class="docs_area">
-    <a href="./readme.txt">readme</a>
+  <div class="favorite_area area">
+    <b>Favorite</b>
+    <table id="favorite_area"></table>
   </div>
   <!-- add event -->
   <script type="module" src="./addEvents.js"></script>

@@ -55,21 +55,10 @@ export function createButtonElement(value: string): HTMLInputElement{
   return elm;
 }
 
-/**
- * クリックイベント付きのtdを作成
- * @param value 表示メッセージ
- * @param callFunc クリック時の関数
- * @returns 
- */
-export function createTdEventForm(value: string, callFunc: Function): HTMLTableCellElement{
-  let tdElement: HTMLTableCellElement = createTdElement(value);
-  tdElement.addEventListener('click', async () => {callFunc});
-  return tdElement;
-}
-
 /** valueを表示し、form情報をセットするイベントを追加したtd要素を作成 */
 export function createTdCallSetForm(value: string, obj: Data): HTMLTableCellElement{
   let tdElement: HTMLTableCellElement = createTdElement(value);
+  tdElement.className = "pointer";
   tdElement.addEventListener('click', async () => {
     setFormData(obj);
   });

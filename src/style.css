@@ -48,3 +48,6 @@
 .favorite_area{
   overflow: auto;
 }
+.pointer {
+  cursor: pointer;
+}

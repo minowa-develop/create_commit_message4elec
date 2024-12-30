@@ -75,3 +75,40 @@ export function convTimestamp(unixtime: number): string{
   const date: Date = new Date(unixtime);
   return date.toLocaleDateString() +' '+ date.toLocaleTimeString();
 }
+
+/**
+ * 指定したIDの子要素を削除
+ * @param id 
+ */
+export function clearChildElement(id: TD_TAG_ID|SELECT_TAG_ID): void{
+  let element: HTMLElement = getElementById(id);
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+}
+
+/**
+ * 指定したIDの子要素をすべてuncheck状態にする
+ * @param id 
+ */
+export function uncheckChildElement(id: Id): void{
+  let element: HTMLInputElement = getElementById(id);
+  element.childNodes.forEach((child: HTMLInputElement)=>{
+    child.checked = false;
+  });
+}
+/**
+ * 指定したIDの子要素の中で選択状態の要素を返す
+ * @param id 
+ * @returns 
+ */
+export function getSelectedChildElement(id: Id): HTMLOptionElement{
+  let element: HTMLSelectElement = getElementById(id);
+  let ckeckedElement: HTMLOptionElement;
+  element.childNodes.forEach((child: HTMLOptionElement)=>{
+    if(child.selected){
+      ckeckedElement = child;
+    }
+  });
+  return ckeckedElement;
+}

@@ -1,9 +1,7 @@
 import { getInputElementById, } from "./common.js";
-import { setFormData, getData, uncheckChildElement } from "./DomAccess.js";
+import { setFormData, getData } from "./DomAccess.js";
 import { Data } from "./Data.js";
 import { createTypeListValues } from "./typelist.js";
-
-// 事後機能
 
 export function createMessage():void{
   var obj = getData();
@@ -19,7 +17,7 @@ export function copy(): void{
 }
 
 /**
- * 初期化
+ * 入力項目初期化
  * @returns 
  */
 export function initialize(): void{
@@ -45,9 +43,6 @@ export function importData(): void{
     // reader.result がファイルの中身
     let obj: Data = new Data();
     obj.setJson(JSON.parse(reader.result as string));
-    uncheckChildElement("repositories");
-    getInputElementById("documents").checked = obj.documents;
-    createTypeListValues();
     setFormData(obj);
     getInputElementById("commit_message").value = obj.makeCommitMessage();
     getInputElementById("import_file").value = "";
@@ -56,7 +51,7 @@ export function importData(): void{
 
 export function exportData(): void{
   let obj = getData();
-  const blob = new Blob([ JSON.stringify(obj)],{type:"text/plain"});
+  const blob = new Blob([JSON.stringify(obj.toJson())],{type:"text/plain"});
   const link = document.createElement('a');
   link.href = URL.createObjectURL(blob);
   link.download = obj.makeTitle() +'.txt';

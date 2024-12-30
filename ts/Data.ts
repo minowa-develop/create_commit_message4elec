@@ -54,7 +54,7 @@ export class Data {
    */
   public toJson(): object{
     return {
-      "repository": this._repository,
+      "documents": this._documents,
       "type": this._type,
       "subject": this._subject,
       "scope": this._scope,

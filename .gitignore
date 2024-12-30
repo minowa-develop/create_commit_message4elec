@@ -1,4 +1,7 @@
 node_modules/*
 src/*.js
+src/*.cjs
 src/*.map
 dist/*
+history.json
+favorite.json

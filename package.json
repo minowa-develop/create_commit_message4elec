@@ -8,7 +8,7 @@
     "electron:run": "electron ./src",
     "dev": "npm run tsc:build && npm run electron:run",
     "electron:build": "electron-packager src create_commit_message --platform=win32 --arch=x64 --overwrite",
-    "makePackage": "npm tsc:build && npm run electron:build"
+    "makePackage": "npm run tsc:build && npm run electron:build"
   },
   "keywords": [],
   "author": "",

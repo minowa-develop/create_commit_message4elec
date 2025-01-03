@@ -6,7 +6,7 @@ import { createTdElement,createTdCallSetForm,convTimestamp,UserPolymerElement } 
 export class HistoryElement extends UserPolymerElement {
   private readonly MAX_HISTORY_COUNT = 5;
   private readonly HISTORY_FILE = "history.json"
-  getElementId(){ return "history-element"; }
+  static get is(){ return "history-element"; }
   static get template() {
     return html`
       <div class="history_area area">
@@ -65,7 +65,7 @@ export class HistoryElement extends UserPolymerElement {
     // read history
     let historyList: Array<HistoryData> = await this.readList();
 
-    let table: HTMLTableElement = this.getElementById('history_area');
+    let table: HTMLTableElement = this.getElementById<HTMLTableElement>('history_area');
 
     // reset tr
     while (table.rows.length > 0) table.deleteRow(0);
@@ -86,7 +86,7 @@ export class HistoryElement extends UserPolymerElement {
   }
 
 }
-customElements.define("history-element", HistoryElement);
+customElements.define(HistoryElement.is, HistoryElement);
 
 
 export class HistoryData {

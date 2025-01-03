@@ -31,17 +31,17 @@
         <tr> <td class="column">message:</td> <td><textarea id="message" class="input_elm"></textarea></td> </tr>
         <tr> <td class="column">refs:</td> <td><input type="text" id="refs" class="input_elm" maxlength="5"></td> </tr>
       </table>
-      <div class="make_button_area"> <button id="createMessage">make</button> </div>
+      <create-message-element></create-message-element>
     </div>
     <div class="maked_area">
       <textarea id="commit_message" class="area"></textarea>
-      <button id="copy">copy</button>
-      <button id="initialize">initialize</button>
+      <copy-element></copy-element>
+      <init-element></init-element>
     </div>
     <div class="export_area">
-      <input type="file" id="import_file" accept=".txt">
-      <button id="exportData">export</button>
-      <button id="favoriteRegist">regist favorite</button>
+      <import-element></import-element>
+      <export-element></export-element>
+      <favorite-regist-element></favorite-regist-element>
     </div>
     
     <history-element></history-element>

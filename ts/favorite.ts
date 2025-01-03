@@ -2,9 +2,9 @@ import { Data, getData } from "./Data.js";
 import { html } from '../node_modules/@polymer/polymer/polymer-element.js';
 import { createTdCallSetForm,createButtonElement,UserPolymerElement } from "./common.js";
 
+const FAVORITE_FILE="favorite.json"
 export class FavoriteElement extends UserPolymerElement {
-  private readonly FAVORITE_FILE="favorite.json"
-  getElementId(){ return "favorite-element"; }
+  static get is() { return 'favorite-element'; }
   static get template() {
     return html`
       <div class="favorite_area area">
@@ -14,27 +14,13 @@ export class FavoriteElement extends UserPolymerElement {
     `;
   }
 
-  public async registFavorite() {
-    // read history
-    var favoriteList: Data[] = await this.readList();
-  
-    // add formdata for history
-    favoriteList.push(getData());
-  
-    // write history
-    await window.myAPI.writeFile(this.FAVORITE_FILE, JSON.stringify(this.toJsonList(favoriteList)))
-  
-    // drow favoriteList
-    this.showFavoriteList();
-  }
-
   /**
  * jsonListをDataListに変換
  * @param rawList 
  * @returns 
  */
-  private async readList(): Promise<Data[]>{
-    let rawList = await window.myAPI.readFile(this.FAVORITE_FILE) as Array<Data>
+  public async readList(): Promise<Data[]>{
+    let rawList = await window.myAPI.readFile(FAVORITE_FILE) as Array<Data>
     let list: Array<Data> = [];
     rawList.forEach((value: Data) => {
       let data = new Data();
@@ -44,7 +30,7 @@ export class FavoriteElement extends UserPolymerElement {
     return list;
   }
 
-  private toJsonList(list: Array<Data>): object[]{
+  public toJsonList(list: Array<Data>): object[]{
     let jsonList: object[] = [];
     list.forEach((value: Data) => {
       jsonList.push(value.toJson());
@@ -55,7 +41,7 @@ export class FavoriteElement extends UserPolymerElement {
   public async showFavoriteList(){
     // read history
     let favoriteList: Data[] = await this.readList();
-    let table: HTMLTableElement = this.getElementById('favorite_area');
+    let table: HTMLTableElement = this.getElementById<HTMLTableElement>('favorite_area');
   
     // reset tr
     while (table.rows.length > 0) table.deleteRow(0);
@@ -86,7 +72,7 @@ export class FavoriteElement extends UserPolymerElement {
     let button: HTMLInputElement = createButtonElement(msg);
     button.addEventListener('click', async () => {
       favoriteList.splice(delindex, 1);
-      await window.myAPI.writeFile(this.FAVORITE_FILE, JSON.stringify(this.toJsonList(favoriteList)));
+      await window.myAPI.writeFile(FAVORITE_FILE, JSON.stringify(this.toJsonList(favoriteList)));
       this.showFavoriteList();
     });
     let tdElement: HTMLTableCellElement  = document.createElement("td");
@@ -94,5 +80,33 @@ export class FavoriteElement extends UserPolymerElement {
     return tdElement;
   }
 }
-customElements.define("favorite-element", FavoriteElement);
+customElements.define(FavoriteElement.is, FavoriteElement);
 
+/**
+ * お気に入り登録ボタン
+ */
+export class FavoriteRegistElement extends UserPolymerElement {
+  static get is(){ return "favorite-regist-element"; }
+  constructor(){
+    super();
+    this.addEventListener('click', this.regist);
+  }
+  static get template() {
+    return html`<button id="favoriteRegist">regist favorite</button>`;
+  }
+  private async regist(){
+    let FavoriteElm = new FavoriteElement();
+    // read history
+    let favoriteList: Data[] = await FavoriteElm.readList();
+  
+    // add formdata for history
+    favoriteList.push(getData());
+  
+    // write history
+    await window.myAPI.writeFile(FAVORITE_FILE, JSON.stringify(FavoriteElm.toJsonList(favoriteList)))
+  
+    // drow favoriteList
+    FavoriteElm.showFavoriteList();
+  }
+}
+customElements.define(FavoriteRegistElement.is, FavoriteRegistElement);

@@ -111,9 +111,8 @@ export function getSelectedChildElement(id: SELECT_TAG_ID): HTMLOptionElement{
 }
 
 export abstract class UserPolymerElement extends PolymerElement {
-  abstract getElementId(): string;
   public getElementById<T extends HTMLElement>(id: string){
-    const shadowHost = document.querySelector(this.getElementId()) as HTMLElement;
+    const shadowHost = document.querySelector(this.localName) as HTMLElement;
     const shadowRoot = shadowHost.shadowRoot as ShadowRoot;
     const element = shadowRoot.getElementById(id) as HTMLElement;
     return element as T;

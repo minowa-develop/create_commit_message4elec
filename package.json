@@ -15,8 +15,10 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@polymer/polymer": "^3.5.2",
     "electron": "^33.0.2",
     "electron-packager": "^17.1.2",
+    "polymer-cli": "^1.9.11",
     "typescript": "^5.7.2"
   }
 }

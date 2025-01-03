@@ -1,5 +1,6 @@
 import { Data, setFormData } from "./Data.js";
 import { HistoryData } from './history.js'
+import { PolymerElement } from '../node_modules/@polymer/polymer/polymer-element.js';
 
 export type INPUT_TAG_ID = "documents"|"tools"|"subject"|"scope"|"refs"|"message"|"commit_message"|"import_file";
 export type TD_TAG_ID = "repositories";
@@ -7,11 +8,11 @@ export type SELECT_TAG_ID = "types";
 export type RADIO_TAG_ID = "tools"|"documents";
 export type TABLE_TAG_ID = "history_area"|"favorite_area"
 export type EVENT_ID = "createMessage"|"copy"|"initialize"|"exportData"|"import_file"|"favoriteRegist";
-export type Id = INPUT_TAG_ID|EVENT_ID|SELECT_TAG_ID|TD_TAG_ID|TABLE_TAG_ID|RADIO_TAG_ID
+export type ID = INPUT_TAG_ID|EVENT_ID|SELECT_TAG_ID|TD_TAG_ID|TABLE_TAG_ID|RADIO_TAG_ID
 export type NAME = "repository"|"type"
 
 // 存在しないIDを指定していた場合は例外を出力する
-export function getElementById<T extends HTMLElement>(id: Id): T{
+export function getElementById<T extends HTMLElement>(id: ID): T{
   let element: HTMLElement|null = document.getElementById(id);
   if(element === null){
       throw new Error("parentId: "+ this.parentId +" is null.");
@@ -86,7 +87,7 @@ export function clearChildElement(id: TD_TAG_ID|SELECT_TAG_ID): void{
  * 指定したIDの子要素をすべてuncheck状態にする
  * @param id 
  */
-export function uncheckChildElement(id: Id): void{
+export function uncheckChildElement(id: ID): void{
   let element: HTMLInputElement = getElementById(id);
   element.childNodes.forEach((child: HTMLInputElement)=>{
     child.checked = false;
@@ -107,4 +108,14 @@ export function getSelectedChildElement(id: SELECT_TAG_ID): HTMLOptionElement{
     }
   });
   return ckeckedElement;
+}
+
+export abstract class UserPolymerElement extends PolymerElement {
+  abstract getElementId(): string;
+  public getElementById<T extends HTMLElement>(id: string){
+    const shadowHost = document.querySelector(this.getElementId()) as HTMLElement;
+    const shadowRoot = shadowHost.shadowRoot as ShadowRoot;
+    const element = shadowRoot.getElementById(id) as HTMLElement;
+    return element as T;
+  }
 }

@@ -1,15 +1,16 @@
 import { getInputElementById, } from "./common.js";
 import { Data, setFormData, getData } from "./Data.js";
 import { createTypeListValues } from "./typelist.js";
-import { showHistoryList } from "./history.js";
+import { HistoryElement } from "./history.js";
+const historyElm = new HistoryElement();
 
 /**
  * コミットメッセージ作成などの処理を行う
  */
 export function createMessage():void{
-  var obj = getData();
+  let obj = getData();
   getInputElementById("commit_message").value = obj.makeCommitMessage();
-  showHistoryList();
+  historyElm.showHistoryList();
 }
 
 /**

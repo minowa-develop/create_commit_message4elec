@@ -89,8 +89,10 @@ export function clearChildElement(id: TD_TAG_ID|SELECT_TAG_ID): void{
  */
 export function uncheckChildElement(id: ID): void{
   let element: HTMLInputElement = getElementById(id);
-  element.childNodes.forEach((child: HTMLInputElement)=>{
-    child.checked = false;
+  Array.from(element.childNodes).forEach((child) => {
+    if (child instanceof HTMLInputElement) {
+      child.checked = false;
+    }
   });
 }
 
@@ -101,13 +103,13 @@ export function uncheckChildElement(id: ID): void{
  */
 export function getSelectedChildElement(id: SELECT_TAG_ID): HTMLOptionElement{
   let element: HTMLSelectElement = getSelectElementById(id);
-  let ckeckedElement: HTMLOptionElement;
+  let checkedElement: HTMLOptionElement;
   element.childNodes.forEach((child: HTMLOptionElement)=>{
     if(child.selected){
-      ckeckedElement = child;
+      checkedElement = child;
     }
   });
-  return ckeckedElement;
+  return checkedElement;
 }
 
 export abstract class UserPolymerElement extends PolymerElement {

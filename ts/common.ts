@@ -9,7 +9,6 @@ export type RADIO_TAG_ID = "tools"|"documents";
 export type TABLE_TAG_ID = "history_area"|"favorite_area"
 export type EVENT_ID = "createMessage"|"copy"|"initialize"|"exportData"|"import_file"|"favoriteRegist";
 export type ID = INPUT_TAG_ID|EVENT_ID|SELECT_TAG_ID|TD_TAG_ID|TABLE_TAG_ID|RADIO_TAG_ID
-export type NAME = "repository"|"type"
 
 // 存在しないIDを指定していた場合は例外を出力する
 export function getElementById<T extends HTMLElement>(id: ID): T{
@@ -112,6 +111,9 @@ export function getSelectedChildElement(id: SELECT_TAG_ID): HTMLOptionElement{
   return checkedElement;
 }
 
+/**
+ * shadowDom内の要素を取得可能なPolymerElement
+ */
 export abstract class UserPolymerElement extends PolymerElement {
   public getElementById<T extends HTMLElement>(id: string){
     const shadowHost = document.querySelector(this.localName) as HTMLElement;

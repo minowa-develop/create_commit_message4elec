@@ -2,12 +2,7 @@ import { getElementById } from './common.js';
 import { createTypeListValues } from './typelist.js';
 import { HistoryElement } from './history.js';
 import { FavoriteElement } from './favorite.js';
-import * as AfterEvents from './afterEvent.js';
-new AfterEvents.CreateMessageElement();
-new AfterEvents.CopyElement();
-new AfterEvents.InitElement();
-new AfterEvents.ImportElement();
-new AfterEvents.ExportElement();
+import './afterEvent.js';
 const favoriteElm = new FavoriteElement();
 const historyElm = new HistoryElement();
 

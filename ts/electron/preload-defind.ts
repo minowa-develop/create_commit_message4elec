@@ -1,6 +1,5 @@
-import { Model } from "./base/data/model/model.js";
-import { HistoryData } from "./domain/history/history-data.js";
-
+import { Model } from "../base/data/model/model.js";
+import { HistoryData } from "../domain/history/history-data.js";
 
 // electron preload
 interface MyAPI {

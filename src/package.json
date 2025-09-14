@@ -1,4 +1,4 @@
 {
-  "main": "main.js",
+  "main": "electron/main.js",
   "type": "module"
 }

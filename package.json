@@ -9,7 +9,7 @@
     "dev": "npm run tsc:build && npm run electron:run",
     "electron:build": "electron-packager src create_commit_message --platform=win32 --arch=x64 --overwrite",
     "makePackage": "npm run tsc:build && npm run electron:build",
-    "deleteMakedFiles": "rm -rf src/*js src/*.map src/{base,domain,electron}"
+    "init": "rm -rf src/*js src/*.map src/{base,domain,electron}"
   },
   "keywords": [],
   "author": "",

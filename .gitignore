@@ -5,3 +5,5 @@ src/*.map
 dist/*
 history.json
 favorite.json
+src/*js
+src/*.map

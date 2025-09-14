@@ -1,3 +1,4 @@
+import { JsonMapper } from "../../base/data/json-mapper.js";
 import { Model } from "../../base/data/model/model.js";
 
 export class HistoryData {
@@ -19,7 +20,7 @@ export class HistoryData {
   public toJson(): object{
     return {
       "timestamp": this._timestamp,
-      "data": this._data
+      "data": JsonMapper.map(this._data)
     }
   }
 }

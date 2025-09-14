@@ -2,8 +2,8 @@ import { DataGetter } from "./base/data/data-getter.js";
 import { ElementGetter } from "./base/element-getter.js";
 import { CommitMessageCreator } from "./domain/commit-message-creator.js";
 import { Exportor } from "./domain/exportor.js";
-import { registFavorite, showFavoriteList } from "./domain/favorite/favorite.js";
-import { historyRegister } from "./domain/history/history-register.js";
+import { FavoriteSetter } from "./domain/favorite/favorite-setter.js";
+import { HistoryRegister } from "./domain/history/history-register.js";
 import { HistorySetter } from "./domain/history/history-setter.js";
 import { importer } from "./domain/importer.js";
 import { Initialyzer } from "./domain/initialyzer.js";
@@ -24,7 +24,7 @@ ElementGetter.getElementById('createMessage').addEventListener('click', async ()
   const obj = DataGetter.get();
   ElementGetter.getInputElementById("commit_message").value = CommitMessageCreator.create(obj);
   HistorySetter.show();
-  historyRegister.regist(obj);
+  HistoryRegister.regist(obj);
 });
 
 /**
@@ -52,12 +52,12 @@ ElementGetter.getElementById('import_file').addEventListener('change', async () 
 
 
 ElementGetter.getElementById('favoriteRegist').addEventListener('click', async () => {
-  registFavorite();
+  FavoriteSetter.show();
 });
 
 window.onload = function() {
   // load post method
   RepositorySwitcher.switch();
   HistorySetter.show();
-  showFavoriteList();
+  FavoriteSetter.show();
 }

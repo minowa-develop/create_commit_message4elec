@@ -4,10 +4,10 @@ import { HistoryData } from "./history-data.js";
 import { HistoryReader } from "./history-reader.js";
 import { HistorySetter } from "./history-setter.js";
 
-export class historyRegister {
+export class HistoryRegister {
   public static async regist(obj: Model){
     // read history
-    let historyList: Array<HistoryData> = await HistoryReader.read();
+    const historyList: Array<HistoryData> = await HistoryReader.read();
   
     // oldest remove
     while(historyList.length >= MAX_HISTORY_COUNT){
@@ -18,7 +18,7 @@ export class historyRegister {
     historyList.push(new HistoryData(obj));
   
     // write history
-    await window.myAPI.writeFile(HISTORY_FILE, JSON.stringify(historyRegister.toJsonList(historyList)));
+    await window.myAPI.writeFile(HISTORY_FILE, JSON.stringify(HistoryRegister.toJsonList(historyList)));
   
     // drow historylist
     HistorySetter.show();

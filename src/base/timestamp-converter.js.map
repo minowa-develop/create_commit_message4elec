@@ -1,0 +1,1 @@
+{"version":3,"file":"timestamp-converter.js","sourceRoot":"","sources":["../../ts/base/timestamp-converter.ts"],"names":[],"mappings":"AAAA,wBAAwB;AACxB,MAAM,OAAO,kBAAkB;IACtB,MAAM,CAAC,aAAa,CAAC,QAAgB;QAC1C,MAAM,IAAI,GAAS,IAAI,IAAI,CAAC,QAAQ,CAAC,CAAC;QACtC,OAAO,GAAG,IAAI,CAAC,kBAAkB,EAAE,IAAI,IAAI,CAAC,kBAAkB,EAAE,EAAE,CAAC;IACrE,CAAC;CACF"}

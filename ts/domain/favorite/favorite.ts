@@ -1,15 +1,17 @@
-import { Data, getData } from "./Data.js";
-import { getTableElementById,createTdCallSetForm,createButtonElement } from "./common.js";
-
-const FAVORITE_FILE="favorite.json"
+import { DataGetter } from "../../base/data/data-getter.js";
+import { Model } from "../../base/data/model/model.js";
+import { TitleMaker } from "../../base/data/title-marker.js";
+import { ElementGetter } from "../../base/element-getter.js";
+import { ElementSousa } from "../../base/element-sousa.js";
+import { FAVORITE_FILE } from "./constants.js";
 
 // 履歴登録
 export async function registFavorite() {
   // read history
-  var favoriteList: Data[] = await readList();
+  var favoriteList: Model[] = await readList();
 
   // add formdata for history
-  favoriteList.push(getData());
+  favoriteList.push(DataGetter.get());
 
   // write history
   await window.myAPI.writeFile(FAVORITE_FILE, JSON.stringify(toJsonList(favoriteList)))
@@ -23,21 +25,21 @@ export async function registFavorite() {
  * @param rawList 
  * @returns 
  */
-async function readList(): Promise<Data[]>{
-  let rawList = await window.myAPI.readFile(FAVORITE_FILE) as Array<Data>
-  let list: Array<Data> = [];
-  rawList.forEach((value: Data) => {
-    let data = new Data();
-    data.setJson(value);
+async function readList(): Promise<Model[]>{
+  let rawList = await window.myAPI.readFile(FAVORITE_FILE) as Array<Model>
+  let list: Array<Model> = [];
+  rawList.forEach((value: Model) => {
+    let data = new Model();
+    data = value;
     list.push(data);
   });
   return list;
 }
 
-function toJsonList(list: Array<Data>): object[]{
+function toJsonList(list: Array<Model>): object[]{
   let jsonList: object[] = [];
-  list.forEach((value: Data) => {
-    jsonList.push(value.toJson());
+  list.forEach((value: Model) => {
+    jsonList.push(value);
   });
   return jsonList;
 }
@@ -47,8 +49,8 @@ function toJsonList(list: Array<Data>): object[]{
  */
 export async function showFavoriteList(){
   // read history
-  let favoriteList: Data[] = await readList();
-  let table: HTMLTableElement = getTableElementById('favorite_area');
+  let favoriteList: Model[] = await readList();
+  let table: HTMLTableElement = ElementGetter.getTableElementById('favorite_area');
 
   // reset tr
   while (table.rows.length > 0) table.deleteRow(0);
@@ -57,7 +59,7 @@ export async function showFavoriteList(){
     let tr = document.createElement("tr");
 
     // title
-    let tdFilename: HTMLTableCellElement = createTdCallSetForm(favoriteList[i].makeTitle(), favoriteList[i]);
+    let tdFilename: HTMLTableCellElement = ElementSousa.createTdCallSetForm(TitleMaker.make(favoriteList[i]), favoriteList[i]);
     tr.appendChild(tdFilename);
 
     // delete button
@@ -75,8 +77,8 @@ export async function showFavoriteList(){
  * @param delindex 削除対象の配列番号
  * @returns 
  */
-function createTdCallDelFavorite(msg: string, favoriteList: Array<Data>, delindex: number): HTMLTableCellElement{
-  let button: HTMLInputElement = createButtonElement(msg);
+function createTdCallDelFavorite(msg: string, favoriteList: Array<Model>, delindex: number): HTMLTableCellElement{
+  let button: HTMLInputElement = ElementSousa.createButtonElement(msg);
   button.addEventListener('click', async () => {
     favoriteList.splice(delindex, 1);
     await window.myAPI.writeFile(FAVORITE_FILE, JSON.stringify(toJsonList(favoriteList)));

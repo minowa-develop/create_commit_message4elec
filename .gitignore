@@ -5,3 +5,6 @@ src/*.map
 dist/*
 history.json
 favorite.json
+src/domain
+src/base
+src/electron

@@ -7,7 +7,7 @@ import { FavoriteSetter } from "./favorite-setter.js";
 export class FavoriteRegister {
   public static async regist(obj: Model){
     // read history
-    const favoriteList: Model[] = await FavoriteReader.read();
+    const favoriteList: object[] = await FavoriteReader.read();
 
     // add formdata for history
     favoriteList.push(JsonMapper.map(obj));

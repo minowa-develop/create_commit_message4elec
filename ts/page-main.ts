@@ -2,6 +2,7 @@ import { DataGetter } from "./base/data/data-getter.js";
 import { ElementGetter } from "./base/element-getter.js";
 import { CommitMessageCreator } from "./domain/commit-message-creator.js";
 import { Exportor } from "./domain/exportor.js";
+import { FavoriteRegister } from "./domain/favorite/favorite-register.js";
 import { FavoriteSetter } from "./domain/favorite/favorite-setter.js";
 import { HistoryRegister } from "./domain/history/history-register.js";
 import { HistorySetter } from "./domain/history/history-setter.js";
@@ -52,7 +53,7 @@ ElementGetter.getElementById('import_file').addEventListener('change', async () 
 
 
 ElementGetter.getElementById('favoriteRegist').addEventListener('click', async () => {
-  FavoriteSetter.show();
+  FavoriteRegister.regist(DataGetter.get());
 });
 
 window.onload = function() {

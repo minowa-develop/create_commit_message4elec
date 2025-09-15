@@ -5,15 +5,14 @@ import { Model } from "./model/model.js";
  * @returns 
  */
 export class JsonMapper {
-  public static map(json: Model): Model{
-    const obj = new Model();
-    obj.documents = json.documents;
-    obj.type = json.type;
-    obj.subject = json.subject;
-    obj.scope = json.scope;
-    obj.refs = json.refs;
-    obj.message = json.message;
-
-    return obj;
+  public static map(data: Model): object{
+    return {
+      "documents": data.documents,
+      "type": data.type,
+      "subject": data.subject,
+      "scope": data.scope,
+      "refs": data.refs,
+      "message": data.message
+    }
   }
 }

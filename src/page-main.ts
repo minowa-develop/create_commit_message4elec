@@ -6,7 +6,7 @@ import { FavoriteRegister } from "./domain/favorite/favorite-register.js";
 import { FavoriteSetter } from "./domain/favorite/favorite-setter.js";
 import { HistoryRegister } from "./domain/history/history-register.js";
 import { HistorySetter } from "./domain/history/history-setter.js";
-import { importer } from "./domain/importer.js";
+import { Importer } from "./domain/importer.js";
 import { Initialyzer } from "./domain/initialyzer.js";
 import { RepositorySwitcher } from "./domain/repository/repository-switcher.js";
 
@@ -48,7 +48,7 @@ ElementGetter.getElementById('exportData').addEventListener('click', async () =>
 
 
 ElementGetter.getElementById('import_file').addEventListener('change', async () => {
-  importer.import();
+  Importer.import();
 });
 
 

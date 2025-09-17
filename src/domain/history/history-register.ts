@@ -18,7 +18,7 @@ export class HistoryRegister {
     historyList.push(new HistoryData(obj));
   
     // write history
-    await window.myAPI.writeFile(HISTORY_FILE, JSON.stringify(HistoryRegister.toJsonList(historyList)));
+    await window.ipcRenderer.writeFile(HISTORY_FILE, JSON.stringify(HistoryRegister.toJsonList(historyList)));
   
     // drow historylist
     HistorySetter.show();

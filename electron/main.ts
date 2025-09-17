@@ -33,7 +33,7 @@ function createWindow() {
     width: 1366,
     height: 900,
     webPreferences: {
-      contextIsolation: false,
+      contextIsolation: true,
       nodeIntegration: false,
       preload: path.join(__dirname, 'preload.mjs'),
     },
@@ -45,10 +45,9 @@ function createWindow() {
   })
 
   ipcMain.handle('read-file', async (_e, file: string) => {
-    console.log('test');
     let read: string[] = [];
     if(fs.existsSync(file)){
-      let text: string = fs.readFileSync(file).toString();
+      const text: string = fs.readFileSync(file).toString();
       try {
         read = JSON.parse(text);
       }catch(e){

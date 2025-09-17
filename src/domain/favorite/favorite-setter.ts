@@ -41,7 +41,7 @@ export class FavoriteSetter {
     const button: HTMLInputElement = ElementSousa.createButtonElement(msg);
     button.addEventListener('click', async () => {
       favoriteList.splice(delindex, 1);
-      await window.myAPI.writeFile(FAVORITE_FILE, JSON.stringify(favoriteList));
+      await window.ipcRenderer.writeFile(FAVORITE_FILE, JSON.stringify(favoriteList));
       FavoriteSetter.show();
     });
     const tdElement: HTMLTableCellElement  = document.createElement("td");

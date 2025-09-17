@@ -13,7 +13,7 @@ export class FavoriteRegister {
     favoriteList.push(JsonMapper.map(obj));
 
     // write history
-    await window.myAPI.writeFile(FAVORITE_FILE, JSON.stringify(favoriteList));
+    await window.ipcRenderer.writeFile(FAVORITE_FILE, JSON.stringify(favoriteList));
 
     // drow favoriteList
     FavoriteSetter.show();

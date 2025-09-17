@@ -5,16 +5,18 @@ import { CommitMessageCreator } from "./commit-message-creator.js";
 /**
  * インポート機能
  */
-export class importer {
+export class Importer {
   public static import(): void{
-    let file: File = ElementGetter.getInputElementById('import_file').files[0];
+    const inputElement = ElementGetter.getInputElementById('import_file');
+    const file: File | null = inputElement && inputElement.files ? inputElement.files[0] : null;
+    if (file == null) {
+      return;
+    }
     //Fileオブジェクト(テキストファイル)のファイル内容を読み込む
-    let reader = new FileReader();
+    const reader = new FileReader();
     reader.readAsText(file, 'UTF-8');
     reader.onload = ()=> {
       // reader.result がファイルの中身
-      // let obj: Data = new Data();
-      // obj.setJson(JSON.parse(reader.result as string));
       const obj = JSON.parse(reader.result as string);
       FormMapper.map(obj);
       ElementGetter.getInputElementById("commit_message").value = CommitMessageCreator.create(obj)

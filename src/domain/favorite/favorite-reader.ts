@@ -3,6 +3,6 @@ import { FAVORITE_FILE } from "./constants.js";
 
 export class FavoriteReader {
   public static async read(): Promise<Model[]>{
-    return await window.myAPI.readFile(FAVORITE_FILE) as Array<Model>;
+    return await window.ipcRenderer.readFile(FAVORITE_FILE) as Array<Model>;
   }
 }
